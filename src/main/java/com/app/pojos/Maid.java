@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 @Table(name="tbl_users")
 public class Maid extends AbstractEnitity {
 	//newly added by elpidaguy
+	//second line added by elpidaguy
 	@Column(length = 30,unique = true)
 	public String name;
 	
