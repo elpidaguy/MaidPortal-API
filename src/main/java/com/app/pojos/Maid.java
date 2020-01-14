@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Table(name="tbl_users")
-public class Maid extends AbstractEnitity {
+public class Maid extends AbstractEntity {
 
 	@Column(length = 30,unique = true)
 	public String name;

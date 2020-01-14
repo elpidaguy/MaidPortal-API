@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="tbl_Address")
-public class Address extends AbstractEnitity{
+public class Address extends AbstractEntity{
 
 	@Column(length = 30)
 	public String name;

@@ -6,7 +6,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="location")
-public class Location extends AbstractEnitity{
+public class Location extends AbstractEntity{
 	
 	@Column(length = 40)
 	public String longitude;
