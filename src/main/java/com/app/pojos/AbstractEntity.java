@@ -1,6 +1,5 @@
 package com.app.pojos;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +16,7 @@ private Integer id;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", updatable = false, nullable = false)
+//	@Column(updatable = false, nullable = false)
 	public Integer getId() {
 		return id;
 	}

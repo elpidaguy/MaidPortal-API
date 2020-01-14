@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,6 +15,8 @@ public class Address extends AbstractEntity {
 	private String firstName, lastName, addressName, email, buildingName, street, city, state, pin, country, phone;
 	private LocalDateTime dateCreated;
 	private boolean _isActive;
+	
+	private User user;
 
 	public Address() {
 	}
@@ -36,6 +40,17 @@ public class Address extends AbstractEntity {
 		this._isActive = _isActive;
 	}
 
+	//TODO: confirm this if its working or not
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	@Column(name = "first_name")
 	public String getFirstName() {
 		return firstName;

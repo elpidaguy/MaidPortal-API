@@ -1,11 +1,14 @@
 package com.app.pojos;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -20,34 +23,31 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "tbl_users")
 public class User extends AbstractEntity {
 
-	private String firstName, lastName, userName, email, phone, password, defaultAddressId, imgUrl;
+	private String firstName, lastName, userName, email, phone, password, imgUrl;
 	private String aadharCardNo;
 	private boolean _isActive;
 	private LocalDate dateCreated;
 	private MaritalStatus maritalStatus;
 	private Gender gender;
+	
+	private List<Address> addressList;
 
 	public User() {
 	}
 
-	public User(String firstName, String lastName, String userName, String email, String phone, String password,
-			String aadharCardNo, String defaultAddressId, boolean _isActive, LocalDate dateCreated,
-			MaritalStatus maritalStatus, Gender gender, String imgUrl) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.userName = userName;
-		this.email = email;
-		this.phone = phone;
-		this.password = password;
-		this.aadharCardNo = aadharCardNo;
-		this.defaultAddressId = defaultAddressId;
-		this._isActive = _isActive;
-		this.dateCreated = dateCreated;
-		this.maritalStatus = maritalStatus;
-		this.gender = gender;
-		this.imgUrl = imgUrl;
+	//TODO: confirm this if its working or not
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	public List<Address> getAddressList() {
+		return addressList;
 	}
+
+
+
+	public void setAddressList(List<Address> addressList) {
+		this.addressList = addressList;
+	}
+
+
 
 	@NotEmpty
 	@Column(length = 30, name = "first_name")
@@ -82,7 +82,7 @@ public class User extends AbstractEntity {
 	@NotEmpty
 	@Length(min = 5, max = 25)
 	@Email(message = "Please Enter Valid Email Address!")
-	@Column(length = 35, name = "email")
+	@Column(length = 35, name = "email", unique = true)
 	public String getEmail() {
 		return email;
 	}
@@ -91,7 +91,7 @@ public class User extends AbstractEntity {
 		this.email = email;
 	}
 
-	@Column(length = 15, name = "phone")
+	@Column(length = 15, name = "phone", unique = true)
 	@NotEmpty
 	public String getPhone() {
 		return phone;
@@ -123,15 +123,6 @@ public class User extends AbstractEntity {
 
 	public void setAadharCardNo(String aadharCardNo) {
 		this.aadharCardNo = aadharCardNo;
-	}
-
-	@Column(name = "defaultAddressId")
-	public String getDefaultAddressId() {
-		return defaultAddressId;
-	}
-
-	public void setDefaultAddressId(String defaultAddressId) {
-		this.defaultAddressId = defaultAddressId;
 	}
 
 	public boolean is_isActive() {
@@ -179,13 +170,5 @@ public class User extends AbstractEntity {
 
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
-	}
-
-	@Override
-	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", email=" + email
-				+ ", phone=" + phone + ", password=" + password + ", aadharCardNo=" + aadharCardNo
-				+ ", defaultAddressId=" + defaultAddressId + ", _isActive=" + _isActive + ", dateCreated=" + dateCreated
-				+ ", maritalStatus=" + maritalStatus + ", gender=" + gender + ", imgUrl=" + imgUrl + "]";
 	}
 }
