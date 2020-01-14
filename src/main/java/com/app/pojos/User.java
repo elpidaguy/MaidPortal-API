@@ -29,25 +29,39 @@ public class User extends AbstractEntity {
 	private LocalDate dateCreated;
 	private MaritalStatus maritalStatus;
 	private Gender gender;
-	
-	private List<Address> addressList;
+
+	private List<UserAddress> UserAddressList;
 
 	public User() {
 	}
 
-	//TODO: confirm this if its working or not
+	public User(String firstName, String lastName, String userName, String email, String phone, String password,
+			String imgUrl, String aadharCardNo, boolean _isActive, LocalDate dateCreated, MaritalStatus maritalStatus,
+			Gender gender) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.email = email;
+		this.phone = phone;
+		this.password = password;
+		this.imgUrl = imgUrl;
+		this.aadharCardNo = aadharCardNo;
+		this._isActive = _isActive;
+		this.dateCreated = dateCreated;
+		this.maritalStatus = maritalStatus;
+		this.gender = gender;
+	}
+
+	// TODO: confirm this if its working or not
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	public List<Address> getAddressList() {
-		return addressList;
+	public List<UserAddress> getAddressList() {
+		return UserAddressList;
 	}
 
-
-
-	public void setAddressList(List<Address> addressList) {
-		this.addressList = addressList;
+	public void setAddressList(List<UserAddress> addressList) {
+		this.UserAddressList = addressList;
 	}
-
-
 
 	@NotEmpty
 	@Column(length = 30, name = "first_name")
@@ -171,4 +185,13 @@ public class User extends AbstractEntity {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
+
+	@Override
+	public String toString() {
+		return "User [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", email=" + email
+				+ ", phone=" + phone + ", password=" + password + ", imgUrl=" + imgUrl + ", aadharCardNo="
+				+ aadharCardNo + ", _isActive=" + _isActive + ", dateCreated=" + dateCreated + ", maritalStatus="
+				+ maritalStatus + ", gender=" + gender + ", UserAddressList=" + UserAddressList + "]";
+	}
+
 }

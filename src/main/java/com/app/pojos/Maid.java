@@ -1,11 +1,14 @@
 package com.app.pojos;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -17,24 +20,24 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="tbl_maids")
+@Table(name = "tbl_maids")
 public class Maid extends AbstractEntity {
-	
+
 	private String firstName, lastName, userName, email, phone, password, defaultAddressId, imgUrl, aadharCardNo;
 	private double salary;
 	private boolean _isActive;
 	private LocalDate dateCreated;
 	private MaritalStatus maritalStatus;
 	private Gender gender;
-	
-	
-	public Maid()
-	{}
-	
-	
+
+	private List<MaidAddress> maidAddressList;
+
+	public Maid() {
+	}
+
 	public Maid(String firstName, String lastName, String userName, String email, String phone, String password,
-			String defaultAddressId, String imgUrl, String aadharCardNo, boolean _isActive, LocalDate dateCreated,
-			MaritalStatus maritalStatus, Gender gender, double salary) {
+			String defaultAddressId, String imgUrl, String aadharCardNo, double salary, boolean _isActive,
+			LocalDate dateCreated, MaritalStatus maritalStatus, Gender gender) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -45,11 +48,21 @@ public class Maid extends AbstractEntity {
 		this.defaultAddressId = defaultAddressId;
 		this.imgUrl = imgUrl;
 		this.aadharCardNo = aadharCardNo;
+		this.salary = salary;
 		this._isActive = _isActive;
 		this.dateCreated = dateCreated;
 		this.maritalStatus = maritalStatus;
 		this.gender = gender;
-		this.salary = salary;
+	}
+
+	// TODO: confirm this if its working or not
+	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
+	public List<MaidAddress> getMaidAddressList() {
+		return maidAddressList;
+	}
+
+	public void setMaidAddressList(List<MaidAddress> maidAddressList) {
+		this.maidAddressList = maidAddressList;
 	}
 
 	@NotEmpty
@@ -184,16 +197,16 @@ public class Maid extends AbstractEntity {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
-	
+
 	@Column(name = "salary")
 	public double getSalary() {
 		return salary;
 	}
+
 	public void setSalary(double salary) {
 		this.salary = salary;
 	}
-	
-	
+
 	@Override
 	public String toString() {
 		return "Maid [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", email=" + email
