@@ -134,7 +134,6 @@ public class User extends AbstractEntity {
 		this.defaultAddressId = defaultAddressId;
 	}
 
-	@Column(name = "_isActive")
 	public boolean is_isActive() {
 		return _isActive;
 	}
