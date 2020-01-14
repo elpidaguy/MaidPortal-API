@@ -103,7 +103,7 @@ public class User extends AbstractEntity {
 
 	@NotEmpty
 	@Pattern(regexp = "((?=.*\\d)(?=.*[a-z])(?=.*[#@$*]).{5,20})", message = "Password should be between length 5 to 20 and contain atleast 1 digit and 1 special characters.")
-	@Column(name="password")
+	@Column(name = "password")
 	public String getPassword() {
 		return password;
 	}
@@ -115,7 +115,7 @@ public class User extends AbstractEntity {
 	@NotEmpty
 	@NotNull
 	@NotBlank
-	@Column(length = 15, name="aadharCardNo")
+	@Column(length = 15, name = "aadharCardNo")
 	@Length(min = 12, max = 12)
 	public double getAadharCardNo() {
 		return aadharCardNo;
@@ -125,7 +125,7 @@ public class User extends AbstractEntity {
 		this.aadharCardNo = aadharCardNo;
 	}
 
-	@Column(name="defaultAddressId")
+	@Column(name = "defaultAddressId")
 	public String getDefaultAddressId() {
 		return defaultAddressId;
 	}
@@ -134,7 +134,7 @@ public class User extends AbstractEntity {
 		this.defaultAddressId = defaultAddressId;
 	}
 
-	@Column(name="_isActive")
+	@Column(name = "_isActive")
 	public boolean is_isActive() {
 		return _isActive;
 	}
@@ -144,7 +144,7 @@ public class User extends AbstractEntity {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name="dateCreated")
+	@Column(name = "dateCreated")
 	public LocalDate getDateCreated() {
 		return dateCreated;
 	}
