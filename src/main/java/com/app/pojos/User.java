@@ -30,7 +30,7 @@ public class User extends AbstractEntity {
 	private MaritalStatus maritalStatus;
 	private Gender gender;
 
-	private List<UserAddress> UserAddressList;
+	private List<UserAddresss> UserAddressList;//address spell check required.
 
 	public User() {
 	}
@@ -55,11 +55,11 @@ public class User extends AbstractEntity {
 
 	// TODO: confirm this if its working or not
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-	public List<UserAddress> getAddressList() {
+	public List<UserAddresss> getAddressList() {
 		return UserAddressList;
 	}
 
-	public void setAddressList(List<UserAddress> addressList) {
+	public void setAddressList(List<UserAddresss> addressList) {
 		this.UserAddressList = addressList;
 	}
 
