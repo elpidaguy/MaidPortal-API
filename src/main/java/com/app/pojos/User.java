@@ -21,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class User extends AbstractEntity {
 
 	private String firstName, lastName, userName, email, phone, password, defaultAddressId, imgUrl;
-	private double aadharCardNo;
+	private String aadharCardNo;
 	private boolean _isActive;
 	private LocalDate dateCreated;
 	private MaritalStatus maritalStatus;
@@ -31,7 +31,7 @@ public class User extends AbstractEntity {
 	}
 
 	public User(String firstName, String lastName, String userName, String email, String phone, String password,
-			double aadharCardNo, String defaultAddressId, boolean _isActive, LocalDate dateCreated,
+			String aadharCardNo, String defaultAddressId, boolean _isActive, LocalDate dateCreated,
 			MaritalStatus maritalStatus, Gender gender, String imgUrl) {
 		super();
 		this.firstName = firstName;
@@ -117,11 +117,11 @@ public class User extends AbstractEntity {
 	@NotBlank
 	@Column(length = 15, name="aadharCardNo")
 	@Length(min = 12, max = 12)
-	public double getAadharCardNo() {
+	public String getAadharCardNo() {
 		return aadharCardNo;
 	}
 
-	public void setAadharCardNo(double aadharCardNo) {
+	public void setAadharCardNo(String aadharCardNo) {
 		this.aadharCardNo = aadharCardNo;
 	}
 
