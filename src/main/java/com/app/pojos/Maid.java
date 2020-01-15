@@ -23,47 +23,46 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "tbl_maids")
 public class Maid extends AbstractEntity {
 
-	private String firstName, lastName, userName, email, phone, password, defaultAddressId, imgUrl, aadharCardNo;
+	private String firstName, lastName, userName, email, phone, password, imgUrl, aadharCardNo;
 	private double salary;
 	private boolean _isActive;
 	private LocalDate dateCreated;
 	private MaritalStatus maritalStatus;
 	private Gender gender;
 
-	private List<MaidAddress> maidAddressList;////address spell check required.
+//	private List<Customer> custList;
+	private List<Salary> salaryList;
+	private List<Subscription> subscriptionList;
 
 	public Maid() {
 	}
 
-	public Maid(String firstName, String lastName, String userName, String email, String phone, String password,
-			String defaultAddressId, String imgUrl, String aadharCardNo, double salary, boolean _isActive,
-			LocalDate dateCreated, MaritalStatus maritalStatus, Gender gender) {
-		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.userName = userName;
-		this.email = email;
-		this.phone = phone;
-		this.password = password;
-		this.defaultAddressId = defaultAddressId;
-		this.imgUrl = imgUrl;
-		this.aadharCardNo = aadharCardNo;
-		this.salary = salary;
-		this._isActive = _isActive;
-		this.dateCreated = dateCreated;
-		this.maritalStatus = maritalStatus;
-		this.gender = gender;
-	}
-
-	// TODO: confirm this if its working or not
 	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
-	public List<MaidAddress> getMaidAddressList() {
-		return maidAddressList;
+	public List<Subscription> getSubscriptionList() {
+		return subscriptionList;
 	}
 
-	public void setMaidAddressList(List<MaidAddress> maidAddressList) {
-		this.maidAddressList = maidAddressList;
+	public void setSubscriptionList(List<Subscription> subscriptionList) {
+		this.subscriptionList = subscriptionList;
 	}
+
+	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
+	public List<Salary> getSalaryList() {
+		return salaryList;
+	}
+
+	public void setSalaryList(List<Salary> salaryList) {
+		this.salaryList = salaryList;
+	}
+
+//	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
+//	public List<Customer> getCustList() {
+//		return custList;
+//	}
+//
+//	public void setCustList(List<Customer> custList) {
+//		this.custList = custList;
+//	}
 
 	@NotEmpty
 	@Column(length = 30, name = "first_name")
@@ -86,7 +85,7 @@ public class Maid extends AbstractEntity {
 	}
 
 	@NotEmpty
-	@Column(length = 30, name = "username")
+	@Column(length = 30, name = "username", unique = true)
 	public String getUserName() {
 		return userName;
 	}
@@ -98,7 +97,7 @@ public class Maid extends AbstractEntity {
 	@NotEmpty
 	@Length(min = 5, max = 25)
 	@Email(message = "Please Enter Valid Email Address!")
-	@Column(length = 35, name = "email")
+	@Column(length = 35, name = "email", unique = true)
 	public String getEmail() {
 		return email;
 	}
@@ -107,7 +106,7 @@ public class Maid extends AbstractEntity {
 		this.email = email;
 	}
 
-	@Column(length = 15, name = "phone")
+	@Column(length = 15, name = "phone", unique = true)
 	@NotEmpty
 	public String getPhone() {
 		return phone;
@@ -131,7 +130,7 @@ public class Maid extends AbstractEntity {
 	@NotEmpty
 	@NotNull
 	@NotBlank
-	@Column(length = 15, name = "aadharCardNo")
+	@Column(length = 15, name = "aadharCardNo", unique = true)
 	@Length(min = 12, max = 12)
 	public String getAadharCardNo() {
 		return aadharCardNo;
@@ -139,15 +138,6 @@ public class Maid extends AbstractEntity {
 
 	public void setAadharCardNo(String aadharCardNo) {
 		this.aadharCardNo = aadharCardNo;
-	}
-
-	@Column(name = "defaultAddressId")
-	public String getDefaultAddressId() {
-		return defaultAddressId;
-	}
-
-	public void setDefaultAddressId(String defaultAddressId) {
-		this.defaultAddressId = defaultAddressId;
 	}
 
 	@Column(name = "_isActive")
@@ -207,11 +197,4 @@ public class Maid extends AbstractEntity {
 		this.salary = salary;
 	}
 
-	@Override
-	public String toString() {
-		return "Maid [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", email=" + email
-				+ ", phone=" + phone + ", password=" + password + ", defaultAddressId=" + defaultAddressId + ", imgUrl="
-				+ imgUrl + ", aadharCardNo=" + aadharCardNo + ", _isActive=" + _isActive + ", dateCreated="
-				+ dateCreated + ", maritalStatus=" + maritalStatus + ", gender=" + gender + ", salary=" + salary + "]";
-	}
 }

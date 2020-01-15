@@ -4,20 +4,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-
-@Entity
-@Table(name="tbl_maid_feedback")
+//
+//@Entity
+//@Table(name="tbl_maid_feedback")
 public class MaidFeedback extends AbstractEntity{
 	
 	private int maid_id;//need to add maid object here
 	private int avgRating;
 	private String comment;
+	
 	public MaidFeedback() {
-		super();
-		
 	}
 	public MaidFeedback(int maid_id, int avgRating, String comment) {
-		super();
 		this.maid_id = maid_id;
 		this.avgRating = avgRating;
 		this.comment = comment;

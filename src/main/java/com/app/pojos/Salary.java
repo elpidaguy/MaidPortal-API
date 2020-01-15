@@ -4,40 +4,63 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name="tbl_cookingSalary")
-public class CookingSalary {
+@Table(name = "tbl_Salary")
+public class Salary extends AbstractEntity {
 
-	private double payable,bonus,fine; 
-	private LocalDate forMonth;	
-	private int maid_id;	
-	private LocalDate paymentDate,createdDate;
-	private boolean _isDeleted,_isPaid;
-	
-	public CookingSalary() {
-		super();
+	private double payable, bonus, fine; // these can be NULL
+	private LocalDate forMonth; // will only be used for notation of month
+	private LocalDate paymentDate, createdDate;
+	private boolean _isDeleted, _isPaid;
+	private ServiceType serviceType;
+
+	private Customer customer;
+	private Maid maid;
+
+	public Salary() {
 	}
 
-	public CookingSalary(double payable, double bonus, double fine, LocalDate forMonth, int maid_id,
-			LocalDate paymentDate, LocalDate createdDate, boolean _isDeleted, boolean _isPaid) {
-		super();
-		this.payable = payable;
-		this.bonus = bonus;
-		this.fine = fine;
-		this.forMonth = forMonth;
-		this.maid_id = maid_id;
-		this.paymentDate = paymentDate;
-		this.createdDate = createdDate;
-		this._isDeleted = _isDeleted;
-		this._isPaid = _isPaid;
-	}
+	// TODO: confirm this if its working or not
+//	@ManyToOne
+//	@JoinColumn(name="maid_id")
 
 	
+	public ServiceType getServiceType() {
+		return serviceType;
+	}
+
+	public void setServiceType(ServiceType serviceType) {
+		this.serviceType = serviceType;
+	}
+	
+
+	@ManyToOne
+	@JoinColumn(name = "maid_id")
+	public Maid getMaid() {
+		return maid;
+	}
+
+	public void setMaid(Maid maid) {
+		this.maid = maid;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "customer_id")
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	@Column(name = "payable")
 	public double getPayable() {
 		return payable;
 	}
@@ -46,6 +69,7 @@ public class CookingSalary {
 		this.payable = payable;
 	}
 
+	@Column(name = "bonus")
 	public double getBonus() {
 		return bonus;
 	}
@@ -54,6 +78,7 @@ public class CookingSalary {
 		this.bonus = bonus;
 	}
 
+	@Column(name = "fine")
 	public double getFine() {
 		return fine;
 	}
@@ -62,6 +87,7 @@ public class CookingSalary {
 		this.fine = fine;
 	}
 
+	@Column(name = "forMonth")
 	public LocalDate getForMonth() {
 		return forMonth;
 	}
@@ -69,17 +95,9 @@ public class CookingSalary {
 	public void setForMonth(LocalDate forMonth) {
 		this.forMonth = forMonth;
 	}
-	
-	@NotEmpty
-	public int getMaid_id() {
-		return maid_id;
-	}
 
-	public void setMaid_id(int maid_id) {
-		this.maid_id = maid_id;
-	}
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name="paymentDate")
+	@Column(name = "paymentDate")
 	public LocalDate getPaymentDate() {
 		return paymentDate;
 	}
@@ -87,8 +105,9 @@ public class CookingSalary {
 	public void setPaymentDate(LocalDate paymentDate) {
 		this.paymentDate = paymentDate;
 	}
+
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name="paymentDate")
+	@Column(name = "createdDate")
 	public LocalDate getCreatedDate() {
 		return createdDate;
 	}
@@ -113,13 +132,4 @@ public class CookingSalary {
 		this._isPaid = _isPaid;
 	}
 
-	@Override
-	public String toString() {
-		return "CookingSalary [payable=" + payable + ", bonus=" + bonus + ", fine=" + fine + ", forMonth=" + forMonth
-				+ ", maid_id=" + maid_id + ", paymentDate=" + paymentDate + ", createdDate=" + createdDate
-				+ ", _isDeleted=" + _isDeleted + ", _isPaid=" + _isPaid + "]";
-	}
-
-	
-	
 }

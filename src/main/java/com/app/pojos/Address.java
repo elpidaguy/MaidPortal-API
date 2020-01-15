@@ -2,26 +2,26 @@ package com.app.pojos;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tbl_user_Address")
-public class UserAddress extends AbstractEntity {
+@Table(name = "tbl_Address")
+public class Address extends AbstractEntity {
 
 	private String firstName, lastName, addressName, email, buildingName, street, city, state, pin, country, phone;
 	private LocalDateTime dateCreated;
 	private boolean _isActive;
 	
-	private User user;
+	private Customer user;
 
-	public UserAddress() {
+	public Address() {
 	}
 
-	public UserAddress(String firstName, String lastName, String addressName, String email, String buildingName,
+	public Address(String firstName, String lastName, String addressName, String email, String buildingName,
 			String street, String city, String state, String pin, String country, String phone,
 			LocalDateTime dateCreated, boolean _isActive) {
 		super();
@@ -41,13 +41,14 @@ public class UserAddress extends AbstractEntity {
 	}
 
 	//TODO: confirm this if its working or not
-	@ManyToOne
-	@JoinColumn(name="user_id")
-	public User getUser() {
+//	@OneToOne
+//	@JoinColumn(name="user_id")
+	@OneToOne(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
+	public Customer getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Customer user) {
 		this.user = user;
 	}
 	
