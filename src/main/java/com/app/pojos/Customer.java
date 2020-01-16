@@ -26,6 +26,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "tbl_customers")
 public class Customer extends AbstractEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String firstName, lastName, userName, email, phone, password, imgUrl;
 	private String aadharCardNo;
 	private boolean _isActive;

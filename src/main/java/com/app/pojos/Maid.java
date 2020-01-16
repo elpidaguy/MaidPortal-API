@@ -24,6 +24,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "tbl_maids")
 public class Maid extends AbstractEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String firstName, lastName, userName, email, phone, password, imgUrl, aadharCardNo;
 	private double salary;
 	private boolean _isActive;
