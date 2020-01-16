@@ -177,7 +177,7 @@ public class Maid extends AbstractEntity {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name = "dateCreated")
+	@Column(name = "created_date")
 	public LocalDate getDateCreated() {
 		return dateCreated;
 	}
