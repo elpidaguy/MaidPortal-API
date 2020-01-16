@@ -8,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -30,8 +29,6 @@ public class Maid extends AbstractEntity {
 	private LocalDate dateCreated;
 	private MaritalStatus maritalStatus;
 	private Gender gender;
-
-	private List<Customer> custList;	//added 
 	
 	private List<Salary> salaryList;		//HELPER METHOD
 	private List<Subscription> subscriptionList;	//HELPER METHOD
@@ -80,15 +77,6 @@ public class Maid extends AbstractEntity {
 
 	public void setSalaryList(List<Salary> salaryList) {
 		this.salaryList = salaryList;
-	}
-
-	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
-	public List<Customer> getCustList() {
-		return custList;
-	}
-
-	public void setCustList(List<Customer> custList) {
-		this.custList = custList;
 	}
 
 	@NotEmpty
@@ -232,18 +220,6 @@ public class Maid extends AbstractEntity {
 				+ aadharCardNo + ", salary=" + salary + ", _isActive=" + _isActive + ", dateCreated=" + dateCreated
 				+ ", maritalStatus=" + maritalStatus + ", gender=" + gender + ", salaryList=" + salaryList
 				+ ", subscriptionList=" + subscriptionList + "]";
-	}
-	
-	public void addCustomer(Customer cust)
-	{
-		custList.add(cust);
-		cust.setSelectedMaid(this);
-	}
-	
-	public void removeStudent(Customer cust)
-	{
-		custList.remove(cust);
-		cust.setSelectedMaid(null);
 	}
 
 	public void addSalary(Salary sal) {

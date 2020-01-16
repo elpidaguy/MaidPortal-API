@@ -3,6 +3,7 @@
  */
 package com.app.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,16 @@ public class CustomerServiceImpl implements ICustomerService {
 	
 	@Override
 	public boolean Register(Customer customer) {
-		// TODO : Need to wrire register code
-		return false;
+		
+		Optional<Customer> optional = custDao.findById(customer.getId());
+		
+		if(optional.isPresent())
+		{
+			return false;
+		}
+		
+		custDao.save(customer);
+		return true;
 	}
 
 	@Override
@@ -46,6 +55,39 @@ public class CustomerServiceImpl implements ICustomerService {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public Customer getCustomer(Integer id) {
+		Optional<Customer> customer = custDao.findById(id);
+		
+		if(customer.isPresent())
+		{
+			return customer.get();
+		}
+		
+		return null;
+	}
+
+	@Override
+	public List<Customer> getAllCustomers() {
+		return custDao.findAll();
+	}
+
+	//TODO : Please confirm the logic later
+	@Override
+	public boolean updateCustomer(Customer customer) {
+		Customer cust = new Customer();
+		cust.setId(customer.getId());
+		Example<Customer> exampleUser = Example.of(cust);
+		Optional<Customer> optional = custDao.findOne(exampleUser);
+		
+		if(optional.isPresent())
+		{
+			custDao.save(customer);
+			return true;
+		}
+		return false;
 	}
 
 }
