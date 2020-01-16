@@ -36,8 +36,6 @@ public class Customer extends AbstractEntity {
 	private LocalDate dateCreated;
 	private MaritalStatus maritalStatus;
 	private Gender gender;
-	private Maid selectedMaid; // i added getter setter with annotation to it..but why was it commented?
-								// //changed the name to selectedMaid..for more clear view
 	private Address address;
 	private List<Salary> salaryList; // HELPER METHOD
 	private Subscription subscription;
@@ -72,20 +70,6 @@ public class Customer extends AbstractEntity {
 
 	public void setSalaryList(List<Salary> salaryList) {
 		this.salaryList = salaryList;
-	}
-
-	// TODO: one to many relation notation
-	// @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval =
-	// true)
-
-	@ManyToOne
-	@JoinColumn(name = "maid_id")
-	public Maid getSelectedMaid() {
-		return selectedMaid;
-	}
-
-	public void setSelectedMaid(Maid maid) {
-		this.selectedMaid = maid;
 	}
 
 	// TODO: confirm this if its working or not
