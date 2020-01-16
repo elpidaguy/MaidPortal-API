@@ -74,4 +74,16 @@ public class CustomerController {
 		
 		return new ResponseEntity<String>("Authentication Failed", HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ResponseEntity<?> register(@RequestBody Customer customer)
+	{
+		
+		if(service.Register(customer))
+		{
+			return new ResponseEntity<String>("Register Successfully", HttpStatus.OK);
+		}
+		
+		return new ResponseEntity<String>("Something went wrong!!", HttpStatus.OK);
+	}
 }

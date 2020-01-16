@@ -74,7 +74,7 @@ public class CustomerServiceImpl implements ICustomerService {
 		return custDao.findAll();
 	}
 
-	//TODO : Please confirm the logic later
+	//TODO : Please confirm the logic
 	@Override
 	public boolean updateCustomer(Customer customer) {
 		Customer cust = new Customer();
