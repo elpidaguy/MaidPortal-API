@@ -10,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -31,16 +32,16 @@ public class Maid extends AbstractEntity {
 	private MaritalStatus maritalStatus;
 	private Gender gender;
 
-	private List<Customer> custList;	//added 
-	
-	private List<Salary> salaryList;		//HELPER METHOD
-	private List<Subscription> subscriptionList;	//HELPER METHOD
+	private List<Customer> custList; // added
+
+	private List<Salary> salaryList; // HELPER METHOD
+	private List<Subscription> subscriptionList; // HELPER METHOD
+	private MaidFeedback maidFeedback;
 
 	public Maid() {
 	}
 
-	
-	//Para CTOR added.
+	// Para CTOR added.
 	public Maid(String firstName, String lastName, String userName, String email, String phone, String password,
 			String imgUrl, String aadharCardNo, double salary, boolean _isActive, LocalDate dateCreated,
 			MaritalStatus maritalStatus, Gender gender, List<Salary> salaryList, List<Subscription> subscriptionList) {
@@ -62,7 +63,14 @@ public class Maid extends AbstractEntity {
 		this.subscriptionList = subscriptionList;
 	}
 
+	@OneToOne(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
+	public MaidFeedback getMaidFeedback() {
+		return maidFeedback;
+	}
 
+	public void setMaidFeedback(MaidFeedback maidFeedback) {
+		this.maidFeedback = maidFeedback;
+	}
 
 	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Subscription> getSubscriptionList() {
@@ -82,7 +90,7 @@ public class Maid extends AbstractEntity {
 		this.salaryList = salaryList;
 	}
 
-	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "selectedMaid", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	public List<Customer> getCustList() {
 		return custList;
 	}
@@ -224,49 +232,46 @@ public class Maid extends AbstractEntity {
 		this.salary = salary;
 	}
 
-	//toString Added
+	// toString Added
 	@Override
 	public String toString() {
 		return "Maid [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", email=" + email
-				+ ", phone=" + phone  + ", imgUrl=" + imgUrl + ", aadharCardNo="
-				+ aadharCardNo + ", salary=" + salary + ", _isActive=" + _isActive + ", dateCreated=" + dateCreated
-				+ ", maritalStatus=" + maritalStatus + ", gender=" + gender + ", salaryList=" + salaryList
-				+ ", subscriptionList=" + subscriptionList + "]";
+				+ ", phone=" + phone + ", imgUrl=" + imgUrl + ", aadharCardNo=" + aadharCardNo + ", salary=" + salary
+				+ ", _isActive=" + _isActive + ", dateCreated=" + dateCreated + ", maritalStatus=" + maritalStatus
+				+ ", gender=" + gender + ", salaryList=" + salaryList + ", subscriptionList=" + subscriptionList + "]";
 	}
-	
-	public void addCustomer(Customer cust)
-	{
+
+	public void addCustomer(Customer cust) {
 		custList.add(cust);
 		cust.setSelectedMaid(this);
 	}
-	
-	public void removeStudent(Customer cust)
-	{
+
+	public void removeStudent(Customer cust) {
 		custList.remove(cust);
 		cust.setSelectedMaid(null);
 	}
 
 	public void addSalary(Salary sal) {
 		salaryList.add(sal);
-		sal.setMaid(this);		
+		sal.setMaid(this);
 	}
-	
+
 	public void removeSalary(Salary sal) {
 		salaryList.remove(sal);
 		sal.setMaid(null);
-		
+
 	}
-	
+
 	public void addSubscription(Subscription sub) {
 		subscriptionList.add(sub);
 		sub.setMaid(this);
-				
+
 	}
-	
+
 	public void removeSubscription(Subscription sub) {
 		subscriptionList.remove(sub);
 		sub.setMaid(null);
-		
+
 	}
-	
+
 }

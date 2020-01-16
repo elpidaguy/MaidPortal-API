@@ -7,40 +7,43 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
-//
 @Entity
-@Table(name = "tbl_maid_feedback")
-public class MaidFeedback extends AbstractEntity {
+@Table(name = "tbl_customer_feedback")
+public class CustomerFeedback extends AbstractEntity {
 
-	// private int maid_id;//need to add maid object here
+	//private int user_id;// need to add user object here
 	private int avgRating;
 	private String comment;
-	private Maid maid;
+	private Customer customer;
 
-	public MaidFeedback() {
+	public CustomerFeedback() {
 	}
 
-	public MaidFeedback(int avgRating, String comment) {
-		// this.maid_id = maid_id;
+	@OneToOne
+	@JoinColumn(name = "cust_id")
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public CustomerFeedback(int avgRating, String comment) {
+		super();
+		//this.user_id = user_id;
 		this.avgRating = avgRating;
 		this.comment = comment;
 	}
 
 	/*
-	 * @NotEmpty public int getMaid_id() { return maid_id; } public void
-	 * setMaid_id(int maid_id) { this.maid_id = maid_id; }
+	 * @NotEmpty public int getUser_id() { return user_id; }
 	 */
 
-	@OneToOne
-	@JoinColumn(name = "maid_id")
-	public Maid getMaid() {
-		return maid;
-	}
+	/*
+	 * public void getUser_id(int user_id) { this.user_id = user_id; }
+	 */
 
-	public void setMaid(Maid maid) {
-		this.maid = maid;
-	}
-	
 	@NotEmpty
 	public int getAvgRating() {
 		return avgRating;
@@ -62,7 +65,9 @@ public class MaidFeedback extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "MaidFeedback [avgRating=" + avgRating + ", comment=" + comment + "]";
+		return "CustomerFeedback [avgRating=" + avgRating + ", comment=" + comment + "]";
 	}
+
+	
 
 }
