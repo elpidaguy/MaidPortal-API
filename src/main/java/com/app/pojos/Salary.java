@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -30,7 +32,8 @@ public class Salary extends AbstractEntity {
 //	@ManyToOne
 //	@JoinColumn(name="maid_id")
 
-	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "service_type")
 	public ServiceType getServiceType() {
 		return serviceType;
 	}

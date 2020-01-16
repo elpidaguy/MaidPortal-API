@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -30,12 +31,38 @@ public class Maid extends AbstractEntity {
 	private MaritalStatus maritalStatus;
 	private Gender gender;
 
-//	private List<Customer> custList;
-	private List<Salary> salaryList;
-	private List<Subscription> subscriptionList;
+	private List<Customer> custList;	//added 
+	
+	private List<Salary> salaryList;		//HELPER METHOD
+	private List<Subscription> subscriptionList;	//HELPER METHOD
 
 	public Maid() {
 	}
+
+	
+	//Para CTOR added.
+	public Maid(String firstName, String lastName, String userName, String email, String phone, String password,
+			String imgUrl, String aadharCardNo, double salary, boolean _isActive, LocalDate dateCreated,
+			MaritalStatus maritalStatus, Gender gender, List<Salary> salaryList, List<Subscription> subscriptionList) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.userName = userName;
+		this.email = email;
+		this.phone = phone;
+		this.password = password;
+		this.imgUrl = imgUrl;
+		this.aadharCardNo = aadharCardNo;
+		this.salary = salary;
+		this._isActive = _isActive;
+		this.dateCreated = dateCreated;
+		this.maritalStatus = maritalStatus;
+		this.gender = gender;
+		this.salaryList = salaryList;
+		this.subscriptionList = subscriptionList;
+	}
+
+
 
 	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Subscription> getSubscriptionList() {
@@ -55,14 +82,14 @@ public class Maid extends AbstractEntity {
 		this.salaryList = salaryList;
 	}
 
-//	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
-//	public List<Customer> getCustList() {
-//		return custList;
-//	}
-//
-//	public void setCustList(List<Customer> custList) {
-//		this.custList = custList;
-//	}
+	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+	public List<Customer> getCustList() {
+		return custList;
+	}
+
+	public void setCustList(List<Customer> custList) {
+		this.custList = custList;
+	}
 
 	@NotEmpty
 	@Column(length = 30, name = "first_name")
@@ -197,4 +224,49 @@ public class Maid extends AbstractEntity {
 		this.salary = salary;
 	}
 
+	//toString Added
+	@Override
+	public String toString() {
+		return "Maid [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", email=" + email
+				+ ", phone=" + phone  + ", imgUrl=" + imgUrl + ", aadharCardNo="
+				+ aadharCardNo + ", salary=" + salary + ", _isActive=" + _isActive + ", dateCreated=" + dateCreated
+				+ ", maritalStatus=" + maritalStatus + ", gender=" + gender + ", salaryList=" + salaryList
+				+ ", subscriptionList=" + subscriptionList + "]";
+	}
+	
+	public void addCustomer(Customer cust)
+	{
+		custList.add(cust);
+		cust.setSelectedMaid(this);
+	}
+	
+	public void removeStudent(Customer cust)
+	{
+		custList.remove(cust);
+		cust.setSelectedMaid(null);
+	}
+
+	public void addSalary(Salary sal) {
+		salaryList.add(sal);
+		sal.setMaid(this);		
+	}
+	
+	public void removeSalary(Salary sal) {
+		salaryList.remove(sal);
+		sal.setMaid(null);
+		
+	}
+	
+	public void addSubscription(Subscription sub) {
+		subscriptionList.add(sub);
+		sub.setMaid(this);
+				
+	}
+	
+	public void removeSubscription(Subscription sub) {
+		subscriptionList.remove(sub);
+		sub.setMaid(null);
+		
+	}
+	
 }

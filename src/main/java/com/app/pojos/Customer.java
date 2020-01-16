@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -31,9 +32,9 @@ public class Customer extends AbstractEntity {
 	private LocalDate dateCreated;
 	private MaritalStatus maritalStatus;
 	private Gender gender;
-//	private Maid maid;
+	private Maid selectedMaid;	//i added getter setter with annotation to it..but why was it commented? //changed the name to selectedMaid..for more clear view
 	private Address address;
-	private List<Salary> salaryList;
+	private List<Salary> salaryList;		//HELPER METHOD
 	private Subscription subscription;
 	// private List<UserAddress> UserAddressList;//address spell check required.
 
@@ -61,6 +62,20 @@ public class Customer extends AbstractEntity {
 	// TODO: one to many relation notation
 	// @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval =
 	// true)
+	
+	
+	
+	@ManyToOne
+	  @JoinColumn(name="cust_id")
+	  public Maid getSelectedMaid(){
+	 	return selectedMaid;
+	 }
+	 
+	 public void setSelectedMaid(Maid maid){
+	 	this.selectedMaid=maid;
+	 }
+	 
+	
 	// TODO: confirm this if its working or not
 	@OneToOne
 	@JoinColumn(name = "address_id")
@@ -194,5 +209,17 @@ public class Customer extends AbstractEntity {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
+	
+	public void addSalary(Salary sal) {
+		salaryList.add(sal);
+		sal.setCustomer(this);		
+	}
+	
+	public void removeSalary(Salary sal) {
+		salaryList.remove(sal);
+		sal.setCustomer(null);
+		
+	}
 
+	
 }

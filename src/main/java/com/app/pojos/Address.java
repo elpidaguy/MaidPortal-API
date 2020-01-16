@@ -7,6 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "tbl_Address")
@@ -78,7 +83,11 @@ public class Address extends AbstractEntity {
 	public void setAddressName(String addressName) {
 		this.addressName = addressName;
 	}
-
+	
+	@NotEmpty
+	@Length(min = 5, max = 25)
+	@Email(message = "Please Enter Valid Email Address!")
+	@Column(length = 35, name = "email", unique = true)
 	public String getEmail() {
 		return email;
 	}
@@ -135,7 +144,9 @@ public class Address extends AbstractEntity {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-
+	
+	@Column(length = 15, name = "phone", unique = true)
+	@NotEmpty
 	public String getPhone() {
 		return phone;
 	}
@@ -144,6 +155,8 @@ public class Address extends AbstractEntity {
 		this.phone = phone;
 	}
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Column(name = "dateCreated")
 	public LocalDateTime getDateCreated() {
 		return dateCreated;
 	}

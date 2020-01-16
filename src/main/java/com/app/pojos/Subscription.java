@@ -7,10 +7,14 @@ import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * @author Kaustubh
@@ -29,6 +33,8 @@ public class Subscription extends AbstractEntity {
 
 	public Subscription() {}
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "service_type")
 	public ServiceType getServiceType() {
 		return serviceType;
 	}
@@ -64,7 +70,8 @@ public class Subscription extends AbstractEntity {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
-
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "date_created")
 	public LocalDate getCreatedDate() {
 		return createdDate;
@@ -72,6 +79,12 @@ public class Subscription extends AbstractEntity {
 
 	public void setCreatedDate(LocalDate createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Subscription [serviceType=" + serviceType + ", Salary=" + Salary + ", maid=" + maid + ", customer="
+				+ customer + ", createdDate=" + createdDate + "]";
 	}
 	
 	
