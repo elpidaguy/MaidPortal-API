@@ -3,6 +3,10 @@
  */
 package com.app.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.app.pojos.Customer;
+
 /**
  * @author Kaustubh
  *
@@ -14,6 +18,6 @@ package com.app.dao;
 //	
 //}
 
-public interface IUserDao {
+public interface ICustomerDao extends JpaRepository<Customer, Integer> {
 	
 }
