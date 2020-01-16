@@ -32,13 +32,24 @@ public class Customer extends AbstractEntity {
 	private LocalDate dateCreated;
 	private MaritalStatus maritalStatus;
 	private Gender gender;
-	private Maid selectedMaid;	//i added getter setter with annotation to it..but why was it commented? //changed the name to selectedMaid..for more clear view
+	private Maid selectedMaid; // i added getter setter with annotation to it..but why was it commented?
+								// //changed the name to selectedMaid..for more clear view
 	private Address address;
-	private List<Salary> salaryList;		//HELPER METHOD
+	private List<Salary> salaryList; // HELPER METHOD
 	private Subscription subscription;
+	private Feedback feedback;
 	// private List<UserAddress> UserAddressList;//address spell check required.
 
 	public Customer() {
+	}
+
+	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+	public Feedback getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(Feedback feedback) {
+		this.feedback = feedback;
 	}
 
 	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -62,20 +73,17 @@ public class Customer extends AbstractEntity {
 	// TODO: one to many relation notation
 	// @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval =
 	// true)
-	
-	
-	
+
 	@ManyToOne
-	  @JoinColumn(name="cust_id")
-	  public Maid getSelectedMaid(){
-	 	return selectedMaid;
-	 }
-	 
-	 public void setSelectedMaid(Maid maid){
-	 	this.selectedMaid=maid;
-	 }
-	 
-	
+	@JoinColumn(name = "maid_id")
+	public Maid getSelectedMaid() {
+		return selectedMaid;
+	}
+
+	public void setSelectedMaid(Maid maid) {
+		this.selectedMaid = maid;
+	}
+
 	// TODO: confirm this if its working or not
 	@OneToOne
 	@JoinColumn(name = "address_id")
@@ -172,6 +180,7 @@ public class Customer extends AbstractEntity {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+
 	//@Temporal(TemporalType.DATE)	//i think we should use this for Date Created..
 	@Column(name = "created_date")
 	public LocalDate getDateCreated() {
@@ -210,17 +219,16 @@ public class Customer extends AbstractEntity {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
-	
+
 	public void addSalary(Salary sal) {
 		salaryList.add(sal);
-		sal.setCustomer(this);		
+		sal.setCustomer(this);
 	}
-	
+
 	public void removeSalary(Salary sal) {
 		salaryList.remove(sal);
 		sal.setCustomer(null);
-		
+
 	}
 
-	
 }
