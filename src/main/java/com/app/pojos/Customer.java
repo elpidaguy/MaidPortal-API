@@ -37,19 +37,19 @@ public class Customer extends AbstractEntity {
 	private Address address;
 	private List<Salary> salaryList; // HELPER METHOD
 	private Subscription subscription;
-	private CustomerFeedback customerFeedback;
+	private Feedback feedback;
 	// private List<UserAddress> UserAddressList;//address spell check required.
 
 	public Customer() {
 	}
 
 	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-	public CustomerFeedback getCustomerFeedback() {
-		return customerFeedback;
+	public Feedback getFeedback() {
+		return feedback;
 	}
 
-	public void setCustomerFeedback(CustomerFeedback customerFeedback) {
-		this.customerFeedback = customerFeedback;
+	public void setFeedback(Feedback feedback) {
+		this.feedback = feedback;
 	}
 
 	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -180,8 +180,9 @@ public class Customer extends AbstractEntity {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	// @Temporal(TemporalType.DATE) //i think we should use this for Date Created..
-	@Column(name = "dateCreated")
+
+	//@Temporal(TemporalType.DATE)	//i think we should use this for Date Created..
+	@Column(name = "created_date")
 	public LocalDate getDateCreated() {
 		return dateCreated;
 	}

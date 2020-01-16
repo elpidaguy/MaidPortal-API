@@ -36,7 +36,7 @@ public class Maid extends AbstractEntity {
 
 	private List<Salary> salaryList; // HELPER METHOD
 	private List<Subscription> subscriptionList; // HELPER METHOD
-	private MaidFeedback maidFeedback;
+	private Feedback feedback;
 
 	public Maid() {
 	}
@@ -64,12 +64,12 @@ public class Maid extends AbstractEntity {
 	}
 
 	@OneToOne(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
-	public MaidFeedback getMaidFeedback() {
-		return maidFeedback;
+	public Feedback getFeedback() {
+		return feedback;
 	}
 
-	public void setMaidFeedback(MaidFeedback maidFeedback) {
-		this.maidFeedback = maidFeedback;
+	public void setFeedback(Feedback feedback) {
+		this.feedback = feedback;
 	}
 
 	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -185,7 +185,7 @@ public class Maid extends AbstractEntity {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@Column(name = "dateCreated")
+	@Column(name = "created_date")
 	public LocalDate getDateCreated() {
 		return dateCreated;
 	}

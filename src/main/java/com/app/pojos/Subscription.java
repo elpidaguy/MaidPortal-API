@@ -13,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -75,7 +73,7 @@ public class Subscription extends AbstractEntity {
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	//@Temporal(TemporalType.DATE)
-	@Column(name = "date_created")
+	@Column(name = "created_date")
 	public LocalDate getCreatedDate() {
 		return createdDate;
 	}

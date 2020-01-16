@@ -8,15 +8,26 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-@Table(name = "tbl_customer_feedback")
-public class CustomerFeedback extends AbstractEntity {
+@Table(name = "tbl_feedback")
+public class Feedback extends AbstractEntity {
 
 	//private int user_id;// need to add user object here
 	private int avgRating;
 	private String comment;
 	private Customer customer;
+	private Maid maid;
 
-	public CustomerFeedback() {
+	public Feedback() {
+	}
+
+	@OneToOne
+	@JoinColumn(name = "maid_id")
+	public Maid getMaid() {
+		return maid;
+	}
+
+	public void setMaid(Maid maid) {
+		this.maid = maid;
 	}
 
 	@OneToOne
@@ -29,7 +40,7 @@ public class CustomerFeedback extends AbstractEntity {
 		this.customer = customer;
 	}
 
-	public CustomerFeedback(int avgRating, String comment) {
+	public Feedback(int avgRating, String comment) {
 		super();
 		//this.user_id = user_id;
 		this.avgRating = avgRating;
