@@ -9,6 +9,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -100,6 +102,7 @@ public class Salary extends AbstractEntity {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//@Temporal(TemporalType.TIMESTAMP) here we can use Time Stamp directly..what do u say?
 	@Column(name = "paymentDate")
 	public LocalDate getPaymentDate() {
 		return paymentDate;
@@ -110,6 +113,7 @@ public class Salary extends AbstractEntity {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//@Temporal(TemporalType.DATE)
 	@Column(name = "createdDate")
 	public LocalDate getCreatedDate() {
 		return createdDate;

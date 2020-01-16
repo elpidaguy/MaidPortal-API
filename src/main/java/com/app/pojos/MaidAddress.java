@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
@@ -18,7 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class MaidAddress extends AbstractEntity {
 
 	private String firstName, lastName, addressName, email, buildingName, street, city, state, pin, country, phone;
-	private LocalDateTime dateCreated;
+	private LocalDateTime dateCreated;	//why local date time here??
 	private boolean _isActive;
 
 	private Maid maid;
@@ -155,6 +157,7 @@ public class MaidAddress extends AbstractEntity {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//@Temporal(TemporalType.DATE)
 	@Column(name = "dateCreated")
 	public LocalDateTime getDateCreated() {
 		return dateCreated;
