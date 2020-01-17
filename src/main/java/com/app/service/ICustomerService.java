@@ -18,6 +18,7 @@ public interface ICustomerService {
 	public Customer getCustomer(Integer id);
 	public List<Customer> getAllCustomers();
 	public boolean updateCustomer(Customer customer);
+	public boolean deleteCustomer(Customer customer);
 //	public Customer Login(String username, String password); //with string username pass
 
 }

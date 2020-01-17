@@ -11,5 +11,6 @@ public interface IMaidService {
 	public Maid getMaid(Integer id);
 	public List<Maid> getAllMaids();
 	public boolean updateMaid(Maid maid);
+	public boolean deleteMaid(Maid maid);
 	
 }

@@ -70,5 +70,20 @@ public class MaidServiceImpl implements IMaidService {
 		}
 		return false;
 	}
+	
+	@Override
+	public boolean deleteMaid(Maid maid) {
+
+		Maid temp = new Maid();
+		temp.setId(maid.getId());
+		Example<Maid> example = Example.of(temp);
+		Optional<Maid> optional = maidDao.findOne(example);
+		if (optional.isPresent()) {
+			maid.set_isActive(false);
+			maidDao.save(maid);
+			return true;
+		}
+		return false;
+	}
 
 }

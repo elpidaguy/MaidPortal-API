@@ -90,4 +90,22 @@ public class CustomerServiceImpl implements ICustomerService {
 		return false;
 	}
 
+	//TODO : Please confirm the logic
+		@Override
+		public boolean deleteCustomer(Customer customer) {
+			Customer cust = new Customer();
+			cust.setId(customer.getId());
+			Example<Customer> exampleUser = Example.of(cust);
+			Optional<Customer> optional = custDao.findOne(exampleUser);
+			
+			if(optional.isPresent())
+			{
+				customer.set_isActive(false);
+				custDao.save(customer);
+				return true;
+			}
+			return false;
+		}
+	
+	
 }

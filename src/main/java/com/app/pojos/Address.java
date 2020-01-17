@@ -17,6 +17,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "tbl_Address")
 public class Address extends AbstractEntity {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String firstName, lastName, addressName, email, buildingName, street, city, state, pin, country, phone;
 	private LocalDateTime dateCreated;
 	private boolean _isActive;
