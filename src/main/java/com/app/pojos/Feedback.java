@@ -76,7 +76,7 @@ public class Feedback extends AbstractEntity {
 
 	@Override
 	public String toString() {
-		return "CustomerFeedback [avgRating=" + avgRating + ", comment=" + comment + "]";
+		return "Feedback [avgRating=" + avgRating + ", comment=" + comment + "]";
 	}
 
 	

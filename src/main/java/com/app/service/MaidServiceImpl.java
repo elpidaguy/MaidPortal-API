@@ -31,6 +31,7 @@ public class MaidServiceImpl implements IMaidService {
 	public Maid Login(Maid maid) {
 
 		Maid temp = new Maid();
+		temp.setId(maid.getId());
 		temp.setUserName(maid.getUserName());
 		temp.setPassword(maid.getPassword());
 		Example<Maid> example = Example.of(temp);
@@ -70,7 +71,7 @@ public class MaidServiceImpl implements IMaidService {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean deleteMaid(Maid maid) {
 

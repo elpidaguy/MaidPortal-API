@@ -112,7 +112,7 @@ public class Maid extends AbstractEntity {
 	}
 
 	@NotEmpty
-	@Column(length = 30, name = "username", unique = true)
+	@Column(length = 30, name = "username")
 	public String getUserName() {
 		return userName;
 	}
@@ -225,17 +225,19 @@ public class Maid extends AbstractEntity {
 	}
 
 	// toString Added
-	@Override
-	public String toString() {
-		return "Maid [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", email=" + email
-				+ ", phone=" + phone + ", imgUrl=" + imgUrl + ", aadharCardNo=" + aadharCardNo + ", salary=" + salary
-				+ ", _isActive=" + _isActive + ", dateCreated=" + dateCreated + ", maritalStatus=" + maritalStatus
-				+ ", gender=" + gender + ", salaryList=" + salaryList + ", subscriptionList=" + subscriptionList + "]";
-	}
-
+	
 	public void addSalary(Salary sal) {
 		salaryList.add(sal);
 		sal.setMaid(this);
+	}
+
+	@Override
+	public String toString() {
+		return "Maid [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", email=" + email
+				+ ", phone=" + phone + ", password=" + password + ", imgUrl=" + imgUrl + ", aadharCardNo="
+				+ aadharCardNo + ", salary=" + salary + ", _isActive=" + _isActive + ", dateCreated=" + dateCreated
+				+ ", maritalStatus=" + maritalStatus + ", gender=" + gender + ", salaryList=" + salaryList
+				+ ", subscriptionList=" + subscriptionList + ", feedback=" + feedback + "]";
 	}
 
 	public void removeSalary(Salary sal) {
