@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.IAddressDao;
 import com.app.pojos.Address;
+import com.app.pojos.Customer;
 
 @Service
 public class AddressServiceImpl implements IAddressService {
@@ -16,13 +17,13 @@ public class AddressServiceImpl implements IAddressService {
 	IAddressDao addressDao;
 
 	@Override
-	public boolean addAddress(Address address) {
+	public boolean addAddress(Address address, Customer customer) {
 
 		Optional<Address> optional = addressDao.findById(address.getId());
 		if (optional.isPresent()) {
 			return false;
 		}
-		addressDao.save(address);
+		customer.addAddress(addressDao.save(address));
 		return true;
 	}
 
@@ -37,21 +38,21 @@ public class AddressServiceImpl implements IAddressService {
 	}
 
 	@Override
-	public boolean updateAddress(Address address) {
+	public boolean updateAddress(Address address, Customer customer) {
 
 		Address add = new Address();
 		add.setId(address.getId());
 		Example<Address> example = Example.of(add);
 		Optional<Address> optional = addressDao.findOne(example);
 		if (optional.isPresent()) {
-			addressDao.save(address);
+			customer.addAddress(addressDao.save(address));
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public boolean deleteAddress(Address address) {
+	public boolean deleteAddress(Address address, Customer customer) {
 
 		Address add = new Address();
 		add.setId(address.getId());
@@ -59,7 +60,7 @@ public class AddressServiceImpl implements IAddressService {
 		Optional<Address> optional = addressDao.findOne(example);
 		if (optional.isPresent()) {
 			address.set_isActive(false);
-			addressDao.save(address);
+			customer.removeAddress(addressDao.save(address));
 			return true;
 		}
 		return false;
