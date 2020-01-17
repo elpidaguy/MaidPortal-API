@@ -168,7 +168,7 @@ public class Customer extends AbstractEntity {
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 
-	//@Temporal(TemporalType.DATE)	//i think we should use this for Date Created..
+	// @Temporal(TemporalType.DATE) //i think we should use this for Date Created..
 	@Column(name = "created_date")
 	public LocalDate getDateCreated() {
 		return dateCreated;
@@ -216,6 +216,14 @@ public class Customer extends AbstractEntity {
 		salaryList.remove(sal);
 		sal.setCustomer(null);
 
+	}
+
+	public void addAddress(Address add) {
+		add.setUser(this);
+	}
+
+	public void removeAddress(Address add) {
+		add.setUser(null);
 	}
 
 }
