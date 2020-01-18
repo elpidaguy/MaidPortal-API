@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.pojos.Email;
 import com.app.service.ICustomerService;
 import com.app.service.IMaidService;
 
@@ -29,19 +30,20 @@ public class EmailController {
 	IMaidService maidService;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<String> sendMail(@RequestBody String email) {
+	public ResponseEntity<String> sendMail(@RequestBody Email email) {
 
-		if (customerSrvice.getCustomerByEmail(email) == null) {
+		if (customerSrvice.getCustomerByEmail(email.getDestEmail()) == null) {
 			return new ResponseEntity<String>("Invalid email", HttpStatus.OK);
 		}
-		if (maidService.getMaidByEmail(email) == null) {
+		if (maidService.getMaidByEmail(email.getDestEmail()) == null) {
 			return new ResponseEntity<String>("Invalid email", HttpStatus.OK);
 		}
 		Random random = new Random();
+		email.setMessage("OTP is " + random.nextInt(9999));
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo(email);
-		message.setSubject("OTP");
-		message.setText("OTP is " + random.nextInt(9999));
+		message.setTo(email.getDestEmail());
+		message.setSubject(email.getSubject());
+		message.setText(email.getMessage());
 		sender.send(message);
 		return new ResponseEntity<String>("Email Sent", HttpStatus.OK);
 	}
