@@ -106,6 +106,18 @@ public class CustomerServiceImpl implements ICustomerService {
 			}
 			return false;
 		}
+
+		@Override
+		public Customer getCustomerByEmail(String email) {
+			Customer customer = new Customer();
+			customer.setEmail(email);
+			Example<Customer> example = Example.of(customer);
+			Optional<Customer> optional = custDao.findOne(example);
+			if(optional.isPresent()) {
+				return optional.get();
+			}
+			return null;
+		}
 	
 	
 }

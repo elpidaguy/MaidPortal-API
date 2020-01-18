@@ -86,4 +86,16 @@ public class MaidServiceImpl implements IMaidService {
 		return false;
 	}
 
+	@Override
+	public Maid getMaidByEmail(String email) {
+		Maid maid = new Maid();
+		maid.setEmail(email);
+		Example<Maid> example = Example.of(maid);
+		Optional<Maid> optional = maidDao.findOne(example);
+		if (optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
+
 }

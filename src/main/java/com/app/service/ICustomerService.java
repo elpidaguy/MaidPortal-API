@@ -16,6 +16,7 @@ public interface ICustomerService {
 	public boolean Register(Customer customer);
 	public Customer Login(Customer customer);
 	public Customer getCustomer(Integer id);
+	public Customer getCustomerByEmail(String email);
 	public List<Customer> getAllCustomers();
 	public boolean updateCustomer(Customer customer);
 	public boolean deleteCustomer(Customer customer);
