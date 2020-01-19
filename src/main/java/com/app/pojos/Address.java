@@ -25,10 +25,11 @@ public class Address extends AbstractEntity {
 	private LocalDateTime dateCreated;
 	private boolean _isActive;
 	
-	private Customer user;
+
 
 	public Address() {
 	}
+
 
 	public Address(String firstName, String lastName, String addressName, String email, String buildingName,
 			String street, String city, String state, String pin, String country, String phone,
@@ -49,17 +50,8 @@ public class Address extends AbstractEntity {
 		this._isActive = _isActive;
 	}
 
-	//TODO: confirm this if its working or not
-//	@OneToOne
-//	@JoinColumn(name="user_id")
-	@OneToOne(mappedBy = "address", cascade = CascadeType.ALL, orphanRemoval = true)
-	public Customer getUser() {
-		return user;
-	}
 
-	public void setUser(Customer user) {
-		this.user = user;
-	}
+
 	
 	@Column(name = "first_name")
 	public String getFirstName() {

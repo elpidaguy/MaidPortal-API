@@ -23,7 +23,7 @@ public class AddressServiceImpl implements IAddressService {
 		if (optional.isPresent()) {
 			return false;
 		}
-		customer.addAddress(addressDao.save(address));
+		customer.setAddress(addressDao.save(address));
 		return true;
 	}
 
@@ -45,7 +45,7 @@ public class AddressServiceImpl implements IAddressService {
 		Example<Address> example = Example.of(add);
 		Optional<Address> optional = addressDao.findOne(example);
 		if (optional.isPresent()) {
-			customer.addAddress(addressDao.save(address));
+			customer.setAddress(addressDao.save(address));
 			return true;
 		}
 		return false;
@@ -60,7 +60,7 @@ public class AddressServiceImpl implements IAddressService {
 		Optional<Address> optional = addressDao.findOne(example);
 		if (optional.isPresent()) {
 			address.set_isActive(false);
-			customer.removeAddress(addressDao.save(address));
+			customer.setAddress(addressDao.save(address));
 			return true;
 		}
 		return false;

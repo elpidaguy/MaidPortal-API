@@ -64,7 +64,7 @@ public class Maid extends AbstractEntity {
 		this.subscriptionList = subscriptionList;
 	}
 
-	@OneToOne(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
+	//@OneToOne(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
 	public Feedback getFeedback() {
 		return feedback;
 	}

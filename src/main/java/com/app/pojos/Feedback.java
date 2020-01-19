@@ -14,31 +14,27 @@ public class Feedback extends AbstractEntity {
 	//private int user_id;// need to add user object here
 	private int avgRating;
 	private String comment;
-	private Customer customer;
-	private Maid maid;
 
+	/*
+	 * private Customer customer; private Maid maid;
+	 */
 	public Feedback() {
 	}
 
-	@OneToOne
-	@JoinColumn(name = "maid_id")
-	public Maid getMaid() {
-		return maid;
-	}
-
-	public void setMaid(Maid maid) {
-		this.maid = maid;
-	}
-
-	@OneToOne
-	@JoinColumn(name = "cust_id")
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+	/*
+	 * @OneToOne
+	 * 
+	 * @JoinColumn(name = "maid_id") public Maid getMaid() { return maid; }
+	 * 
+	 * public void setMaid(Maid maid) { this.maid = maid; }
+	 * 
+	 * @OneToOne
+	 * 
+	 * @JoinColumn(name = "cust_id") public Customer getCustomer() { return
+	 * customer; }
+	 * 
+	 * public void setCustomer(Customer customer) { this.customer = customer; }
+	 */
 
 	public Feedback(int avgRating, String comment) {
 		super();

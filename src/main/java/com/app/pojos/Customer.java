@@ -44,7 +44,7 @@ public class Customer extends AbstractEntity {
 	public Customer() {
 	}
 
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+	//@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
 	public Feedback getFeedback() {
 		return feedback;
 	}
@@ -218,12 +218,9 @@ public class Customer extends AbstractEntity {
 
 	}
 
-	public void addAddress(Address add) {
-		add.setUser(this);
-	}
-
-	public void removeAddress(Address add) {
-		add.setUser(null);
-	}
-
+	/*
+	 * public void addAddress(Address add) { add.setUser(this); }
+	 * 
+	 * public void removeAddress(Address add) { add.setUser(null); }
+	 */
 }
