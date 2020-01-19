@@ -29,14 +29,17 @@ public class MaidServiceImpl implements IMaidService {
 
 	@Override
 	public Maid Login(Maid maid) {
+		/*
+		 * Maid temp = new Maid(); temp.setUserName(maid.getUserName());
+		 * temp.setPassword(maid.getPassword()); Example<Maid> example =
+		 * Example.of(temp); Optional<Maid> optional = maidDao.findOne(example);
+		 * 
+		 * if (optional.isPresent()) { return optional.get(); }
+		 */
 
-		Maid temp = new Maid();
-		temp.setUserName(maid.getUserName());
-		temp.setPassword(maid.getPassword());
-		Example<Maid> example = Example.of(temp);
-		Optional<Maid> optional = maidDao.findOne(example);
-		if (optional.isPresent()) {
-			return optional.get();
+		Maid temp2 = maidDao.loginMaid(maid.getUserName(), maid.getPassword());
+		if (temp2 != null) {
+			return temp2;
 		}
 		return null;
 	}
@@ -60,11 +63,14 @@ public class MaidServiceImpl implements IMaidService {
 	@Override
 	public boolean updateMaid(Maid maid) {
 
-		Maid temp = new Maid();
-		temp.setId(maid.getId());
-		Example<Maid> example = Example.of(temp);
-		Optional<Maid> optional = maidDao.findOne(example);
-		if (optional.isPresent()) {
+		/*
+		 * Maid temp = new Maid(); temp.setId(maid.getId()); Example<Maid> example =
+		 * Example.of(temp); Optional<Maid> optional = maidDao.findOne(example); if
+		 * (optional.isPresent()) { maidDao.save(maid); return true; }
+		 */
+
+		Maid temp2 = maidDao.loginMaid(maid.getUserName(), maid.getPassword());
+		if (temp2 != null) {
 			maidDao.save(maid);
 			return true;
 		}
@@ -74,11 +80,15 @@ public class MaidServiceImpl implements IMaidService {
 	@Override
 	public boolean deleteMaid(Maid maid) {
 
-		Maid temp = new Maid();
-		temp.setId(maid.getId());
-		Example<Maid> example = Example.of(temp);
-		Optional<Maid> optional = maidDao.findOne(example);
-		if (optional.isPresent()) {
+		/*
+		 * Maid temp = new Maid(); temp.setId(maid.getId()); Example<Maid> example =
+		 * Example.of(temp); Optional<Maid> optional = maidDao.findOne(example); if
+		 * (optional.isPresent()) { maid.set_isActive(false); maidDao.save(maid); return
+		 * true; }
+		 */
+		
+		Maid temp2 = maidDao.loginMaid(maid.getUserName(), maid.getPassword());
+		if (temp2 != null) {
 			maid.set_isActive(false);
 			maidDao.save(maid);
 			return true;
