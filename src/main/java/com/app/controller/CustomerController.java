@@ -72,7 +72,7 @@ public class CustomerController {
 			return new ResponseEntity<Customer>(temp, HttpStatus.OK);
 		}
 		
-		return new ResponseEntity<String>("Authentication Failed", HttpStatus.OK);
+		return new ResponseEntity<String>("Incorrect Username/Password!", HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)

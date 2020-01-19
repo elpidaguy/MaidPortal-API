@@ -44,6 +44,7 @@ public class CustomerServiceImpl implements ICustomerService {
 		
 		cust.setUserName(customer.getUserName());
 		cust.setPassword(customer.getPassword());
+		cust.set_isActive(true);
 		
 		Example<Customer> exampleuser = Example.of(cust);
 		Optional<Customer> optional = custDao.findOne(exampleuser);
