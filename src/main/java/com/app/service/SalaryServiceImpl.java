@@ -3,7 +3,6 @@ package com.app.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.ISalaryDao;
@@ -28,10 +27,11 @@ public class SalaryServiceImpl implements ISalaryService {
 	@Override
 	public boolean addSalary(Salary salary) {
 
-		Salary sal = new Salary();
-		sal.setId(salary.getId());
-		Example<Salary> example = Example.of(sal);
-		Optional<Salary> optional = salaryDao.findOne(example);
+		/*
+		 * Salary sal = new Salary(); sal.setId(salary.getId()); Example<Salary> example
+		 * = Example.of(sal); Optional<Salary> optional = salaryDao.findOne(example);
+		 */
+		Optional<Salary> optional = salaryDao.findById(salary.getId());
 		if (optional.isPresent()) {
 			return false;
 		}
@@ -42,10 +42,11 @@ public class SalaryServiceImpl implements ISalaryService {
 	@Override
 	public boolean paySalary(Salary salary) {
 
-		Salary sal = new Salary();
-		sal.setId(salary.getId());
-		Example<Salary> example = Example.of(sal);
-		Optional<Salary> optional = salaryDao.findOne(example);
+		/*
+		 * Salary sal = new Salary(); sal.setId(salary.getId()); Example<Salary> example
+		 * = Example.of(sal); Optional<Salary> optional = salaryDao.findOne(example);
+		 */
+		Optional<Salary> optional = salaryDao.findById(salary.getId());
 		if (optional.isPresent()) {
 			salary.set_isPaid(true);
 			salaryDao.save(salary);
@@ -57,10 +58,11 @@ public class SalaryServiceImpl implements ISalaryService {
 	@Override
 	public boolean deleteSalary(Salary salary) {
 
-		Salary sal = new Salary();
-		sal.setId(salary.getId());
-		Example<Salary> example = Example.of(sal);
-		Optional<Salary> optional = salaryDao.findOne(example);
+		/*
+		 * Salary sal = new Salary(); sal.setId(salary.getId()); Example<Salary> example
+		 * = Example.of(sal); Optional<Salary> optional = salaryDao.findOne(example);
+		 */
+		Optional<Salary> optional = salaryDao.findById(salary.getId());
 		if (optional.isPresent()) {
 			salary.set_isDeleted(true);
 			salaryDao.save(salary);

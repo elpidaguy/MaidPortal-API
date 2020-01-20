@@ -25,7 +25,7 @@ public class MaidController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> register(@RequestBody Maid maid) {
 
-		if (maidService.Register(maid)) {
+		if (maidService.register(maid)) {
 			return new ResponseEntity<String>("Register Successfully", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Something went wrong", HttpStatus.OK);
@@ -34,7 +34,7 @@ public class MaidController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ResponseEntity<?> login(@RequestBody Maid maid) {
 
-		Maid temp = maidService.Login(maid);
+		Maid temp = maidService.login(maid);
 		if (temp != null) {
 			return new ResponseEntity<Maid>(temp, HttpStatus.OK);
 		}

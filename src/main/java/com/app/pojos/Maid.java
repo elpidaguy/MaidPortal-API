@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -226,10 +225,9 @@ public class Maid extends AbstractEntity {
 
 	// toString Added
 	
-	public void addSalary(Salary sal) {
-		salaryList.add(sal);
-		sal.setMaid(this);
-	}
+	/*
+	 * public void addSalary(Salary sal) { salaryList.add(sal); sal.setMaid(this); }
+	 */
 
 	@Override
 	public String toString() {
@@ -240,22 +238,21 @@ public class Maid extends AbstractEntity {
 				+ ", subscriptionList=" + subscriptionList + ", feedback=" + feedback + "]";
 	}
 
-	public void removeSalary(Salary sal) {
-		salaryList.remove(sal);
-		sal.setMaid(null);
-
-	}
-
-	public void addSubscription(Subscription sub) {
-		subscriptionList.add(sub);
-		sub.setMaid(this);
-
-	}
-
-	public void removeSubscription(Subscription sub) {
-		subscriptionList.remove(sub);
-		sub.setMaid(null);
-
-	}
-
+	/*
+	 * public void removeSalary(Salary sal) { salaryList.remove(sal);
+	 * sal.setMaid(null);
+	 * 
+	 * }
+	 */
+	/*
+	 * public void addSubscription(Subscription sub) { subscriptionList.add(sub);
+	 * sub.setMaid(this);
+	 * 
+	 * }
+	 * 
+	 * public void removeSubscription(Subscription sub) {
+	 * subscriptionList.remove(sub); sub.setMaid(null);
+	 * 
+	 * }
+	 */
 }

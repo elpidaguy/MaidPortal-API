@@ -41,7 +41,6 @@ public class Salary extends AbstractEntity {
 	public void setServiceType(ServiceType serviceType) {
 		this.serviceType = serviceType;
 	}
-	
 
 	@ManyToOne
 	@JoinColumn(name = "maid_id")
@@ -52,7 +51,7 @@ public class Salary extends AbstractEntity {
 	public void setMaid(Maid maid) {
 		this.maid = maid;
 	}
-	
+
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	public Customer getCustomer() {
@@ -100,7 +99,8 @@ public class Salary extends AbstractEntity {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	//@Temporal(TemporalType.TIMESTAMP) here we can use Time Stamp directly..what do u say?
+	// @Temporal(TemporalType.TIMESTAMP) here we can use Time Stamp directly..what
+	// do u say?
 	@Column(name = "payment_date")
 	public LocalDate getPaymentDate() {
 		return paymentDate;
@@ -111,7 +111,7 @@ public class Salary extends AbstractEntity {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	//@Temporal(TemporalType.DATE)
+	// @Temporal(TemporalType.DATE)
 	@Column(name = "created_date")
 	public LocalDate getCreatedDate() {
 		return createdDate;

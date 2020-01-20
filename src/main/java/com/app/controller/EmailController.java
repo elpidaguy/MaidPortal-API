@@ -34,20 +34,19 @@ public class EmailController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<String> sendMail(@RequestBody Email email) {
 
-		if (customerSrvice.getCustomerByEmail(email.getDestEmail()) == null) {
-			return new ResponseEntity<String>("Invalid email", HttpStatus.OK);
+		if (customerSrvice.getCustomerByEmail(email.getDestEmail()) !=null || maidService.getMaidByEmail(email.getDestEmail()) != null) {
+			Random random = new Random();
+			email.setMessage("OTP is " + random.nextInt(9999));
+			SimpleMailMessage message = new SimpleMailMessage();
+			message.setFrom("cdacmaidportal@gmail.com");
+			message.setTo(email.getDestEmail());
+			message.setSubject(email.getSubject());
+			message.setText(email.getMessage());
+			sender.send(message);
+			return new ResponseEntity<String>("Email Sent", HttpStatus.OK);
 		}
-		if (maidService.getMaidByEmail(email.getDestEmail()) == null) {
 			return new ResponseEntity<String>("Invalid email", HttpStatus.OK);
-		}
-		Random random = new Random();
-		email.setMessage("OTP is " + random.nextInt(9999));
-		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo(email.getDestEmail());
-		message.setSubject(email.getSubject());
-		message.setText(email.getMessage());
-		sender.send(message);
-		return new ResponseEntity<String>("Email Sent", HttpStatus.OK);
+		
 	}
 
 }

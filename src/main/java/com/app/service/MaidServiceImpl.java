@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.IMaidDao;
@@ -17,7 +16,7 @@ public class MaidServiceImpl implements IMaidService {
 	IMaidDao maidDao;
 
 	@Override
-	public boolean Register(Maid maid) {
+	public boolean register(Maid maid) {
 
 		Optional<Maid> optional = maidDao.findById(maid.getId());
 		if (optional.isPresent()) {
@@ -28,7 +27,7 @@ public class MaidServiceImpl implements IMaidService {
 	}
 
 	@Override
-	public Maid Login(Maid maid) {
+	public Maid login(Maid maid) {
 		/*
 		 * Maid temp = new Maid(); temp.setUserName(maid.getUserName());
 		 * temp.setPassword(maid.getPassword()); Example<Maid> example =
@@ -98,12 +97,15 @@ public class MaidServiceImpl implements IMaidService {
 
 	@Override
 	public Maid getMaidByEmail(String email) {
-		Maid maid = new Maid();
-		maid.setEmail(email);
-		Example<Maid> example = Example.of(maid);
-		Optional<Maid> optional = maidDao.findOne(example);
-		if (optional.isPresent()) {
-			return optional.get();
+		
+		/*
+		 * maid.setEmail(email); Example<Maid> example = Example.of(maid);
+		 * Optional<Maid> optional = maidDao.findOne(example);
+		 *
+		 */
+		Maid maid = maidDao.getMaidByEmail(email);
+		if (maid != null) {
+			return maid;
 		}
 		return null;
 	}

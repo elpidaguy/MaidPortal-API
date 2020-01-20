@@ -40,9 +40,9 @@ public class AddressController {
 	}
 
 	@RequestMapping(value = "updateAddress", method = RequestMethod.POST)
-	public ResponseEntity<String> updateAddress(@RequestBody Address address, @RequestBody Customer customer) {
+	public ResponseEntity<String> updateAddress(@RequestBody Address address) {
 
-		if (addressService.updateAddress(address, customer)) {
+		if (addressService.updateAddress(address)) {
 			return new ResponseEntity<String>("Address Updated successfully", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Address updation Failed", HttpStatus.OK);

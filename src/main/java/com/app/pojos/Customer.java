@@ -206,18 +206,15 @@ public class Customer extends AbstractEntity {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
-
-	public void addSalary(Salary sal) {
-		salaryList.add(sal);
-		sal.setCustomer(this);
-	}
-
-	public void removeSalary(Salary sal) {
-		salaryList.remove(sal);
-		sal.setCustomer(null);
-
-	}
-
+	/*
+	 * public void addSalary(Salary sal) { salaryList.add(sal);
+	 * sal.setCustomer(this); }
+	 * 
+	 * public void removeSalary(Salary sal) { salaryList.remove(sal);
+	 * sal.setCustomer(null);
+	 * 
+	 * }
+	 */
 	/*
 	 * public void addAddress(Address add) { add.setUser(this); }
 	 * 

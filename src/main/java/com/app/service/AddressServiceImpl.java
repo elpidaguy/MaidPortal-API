@@ -38,14 +38,11 @@ public class AddressServiceImpl implements IAddressService {
 	}
 
 	@Override
-	public boolean updateAddress(Address address, Customer customer) {
+	public boolean updateAddress(Address address) {
 
-		Address add = new Address();
-		add.setId(address.getId());
-		Example<Address> example = Example.of(add);
-		Optional<Address> optional = addressDao.findOne(example);
+		Optional<Address> optional = addressDao.findById(address.getId());
 		if (optional.isPresent()) {
-			customer.setAddress(addressDao.save(address));
+			addressDao.save(address);
 			return true;
 		}
 		return false;
@@ -56,11 +53,13 @@ public class AddressServiceImpl implements IAddressService {
 
 		Address add = new Address();
 		add.setId(address.getId());
+		add.set_isActive(true);
 		Example<Address> example = Example.of(add);
 		Optional<Address> optional = addressDao.findOne(example);
 		if (optional.isPresent()) {
 			address.set_isActive(false);
-			customer.setAddress(addressDao.save(address));
+			addressDao.save(address);
+			customer.setAddress(null);
 			return true;
 		}
 		return false;

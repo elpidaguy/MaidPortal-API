@@ -23,50 +23,48 @@ public class CustomerServiceImpl implements ICustomerService {
 
 	@Autowired
 	ICustomerDao custDao;
-	
+
 	@Override
-	public boolean Register(Customer customer) {
-		
+	public boolean register(Customer customer) {
+
 		Optional<Customer> optional = custDao.findById(customer.getId());
-		
-		if(optional.isPresent())
-		{
+
+		if (optional.isPresent()) {
 			return false;
 		}
-		
+
 		custDao.save(customer);
 		return true;
 	}
 
 	@Override
-	public Customer Login(Customer customer) {
+	public Customer login(Customer customer) {
 		Customer cust = new Customer();
-		
+
 		cust.setUserName(customer.getUserName());
 		cust.setPassword(customer.getPassword());
 		cust.set_isActive(true);
-		
+
 		Example<Customer> exampleuser = Example.of(cust);
 		Optional<Customer> optional = custDao.findOne(exampleuser);
-		//select * from Customer c where c.username = username and c.password = passweord
-		
-		if(optional.isPresent())
-		{
+		// select * from Customer c where c.username = username and c.password =
+		// passweord
+
+		if (optional.isPresent()) {
 			return optional.get();
 		}
-		
+
 		return null;
 	}
 
 	@Override
 	public Customer getCustomer(Integer id) {
 		Optional<Customer> customer = custDao.findById(id);
-		
-		if(customer.isPresent())
-		{
+
+		if (customer.isPresent()) {
 			return customer.get();
 		}
-		
+
 		return null;
 	}
 
@@ -75,50 +73,52 @@ public class CustomerServiceImpl implements ICustomerService {
 		return custDao.findAll();
 	}
 
-	//TODO : Please confirm the logic
+	// TODO : Please confirm the logic
 	@Override
 	public boolean updateCustomer(Customer customer) {
-		Customer cust = new Customer();
-		cust.setId(customer.getId());
-		Example<Customer> exampleUser = Example.of(cust);
-		Optional<Customer> optional = custDao.findOne(exampleUser);
-		
-		if(optional.isPresent())
-		{
+		/*
+		 * Customer cust = new Customer(); cust.setId(customer.getId());
+		 * Example<Customer> exampleUser = Example.of(cust);
+		 */
+
+		// If we have id then use findById method
+		Optional<Customer> optional = custDao.findById(customer.getId());
+
+		if (optional.isPresent()) {
 			custDao.save(customer);
 			return true;
 		}
 		return false;
 	}
 
-	//TODO : Please confirm the logic
-		@Override
-		public boolean deleteCustomer(Customer customer) {
-			Customer cust = new Customer();
-			cust.setId(customer.getId());
-			Example<Customer> exampleUser = Example.of(cust);
-			Optional<Customer> optional = custDao.findOne(exampleUser);
-			
-			if(optional.isPresent())
-			{
-				customer.set_isActive(false);
-				custDao.save(customer);
-				return true;
-			}
-			return false;
-		}
+	// TODO : Please confirm the logic
+	@Override
+	public boolean deleteCustomer(Customer customer) {
+		/*
+		 * Customer cust = new Customer(); cust.setId(customer.getId());
+		 * Example<Customer> exampleUser = Example.of(cust);
+		 */
+		Optional<Customer> optional = custDao.findById(customer.getId());
 
-		@Override
-		public Customer getCustomerByEmail(String email) {
-			Customer customer = new Customer();
-			customer.setEmail(email);
-			Example<Customer> example = Example.of(customer);
-			Optional<Customer> optional = custDao.findOne(example);
-			if(optional.isPresent()) {
-				return optional.get();
-			}
-			return null;
+		if (optional.isPresent()) {
+			customer.set_isActive(false);
+			custDao.save(customer);
+			return true;
 		}
-	
-	
+		return false;
+	}
+
+	@Override
+	public Customer getCustomerByEmail(String email) {
+		Customer customer = new Customer();
+		customer.setEmail(email);
+		customer.set_isActive(true);
+		Example<Customer> example = Example.of(customer);
+		Optional<Customer> optional = custDao.findOne(example);
+		if (optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
+	}
+
 }

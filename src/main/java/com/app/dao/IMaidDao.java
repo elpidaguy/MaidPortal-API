@@ -11,4 +11,7 @@ public interface IMaidDao extends JpaRepository<Maid, Integer> {
 
 	@Query("select m from Maid m where m.userName = ?1  and m.password = ?2")
 	Maid loginMaid(String username, String password);
+	
+	@Query("select m from Maid m where m.email = ?1")
+	Maid getMaidByEmail(String email);
 }

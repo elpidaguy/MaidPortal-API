@@ -3,7 +3,6 @@ package com.app.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.ISubscriptionDao;
@@ -18,10 +17,12 @@ public class SubscriptionServiceImpl implements ISubscritionService {
 	@Override
 	public boolean changeSubscription(Subscription subscription) {
 
-		Subscription s = new Subscription();
-		s.setId(subscription.getId());
-		Example<Subscription> example = Example.of(s);
-		Optional<Subscription> optional = subscriptionDao.findOne(example);
+		/*
+		 * Subscription s = new Subscription(); s.setId(subscription.getId());
+		 * Example<Subscription> example = Example.of(s); Optional<Subscription>
+		 * optional = subscriptionDao.findOne(example);
+		 */
+		Optional<Subscription> optional = subscriptionDao.findById(subscription.getId());
 		if (optional.isPresent()) {
 			subscriptionDao.save(subscription);
 			return true;

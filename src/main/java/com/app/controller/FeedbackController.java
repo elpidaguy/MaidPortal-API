@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.pojos.Customer;
 import com.app.pojos.Feedback;
+import com.app.pojos.Maid;
 import com.app.service.IFeedbackService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -22,9 +23,9 @@ public class FeedbackController {
 	IFeedbackService feedbackService;
 
 	@RequestMapping(value = "customerFeedback", method = RequestMethod.POST)
-	public ResponseEntity<?> giveCustomerFeedback(@RequestBody Feedback feedback, @RequestBody Customer customer) {
+	public ResponseEntity<?> giveCustomerFeedback(@RequestBody Feedback feedback, @RequestBody Maid maid) {
 
-		if (feedbackService.giveFeedback(feedback, customer)) {
+		if (feedbackService.giveFeedback(feedback, maid)) {
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Feedback not submitted", HttpStatus.OK);
