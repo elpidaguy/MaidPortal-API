@@ -21,6 +21,8 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tbl_customers")
 public class Customer extends AbstractEntity {
@@ -44,7 +46,11 @@ public class Customer extends AbstractEntity {
 	public Customer() {
 	}
 
-	//@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+	// @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval =
+	// true)
+	@OneToOne
+	@JoinColumn(name = "feedback_id")
+	@JsonIgnore
 	public Feedback getFeedback() {
 		return feedback;
 	}
@@ -53,7 +59,11 @@ public class Customer extends AbstractEntity {
 		this.feedback = feedback;
 	}
 
-	@OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+	// @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval =
+	// true)
+	@JsonIgnore
+	@OneToOne
+	@JoinColumn(name = "subscription_id")
 	public Subscription getSubscription() {
 		return subscription;
 	}
@@ -62,6 +72,7 @@ public class Customer extends AbstractEntity {
 		this.subscription = subscription;
 	}
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Salary> getSalaryList() {
 		return salaryList;

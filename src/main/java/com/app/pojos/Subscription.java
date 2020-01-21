@@ -9,12 +9,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  * @author Kaustubh
@@ -23,15 +26,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "tbl_subscription")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Subscription extends AbstractEntity {
-	
+
 	private ServiceType serviceType;
 	private String Salary;
 	private Maid maid;
-	private Customer customer;
-	private LocalDate createdDate;	
+	// private Customer customer;
+	private LocalDate createdDate;
 
-	public Subscription() {}
+	public Subscription() {
+	}
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "service_type")
@@ -51,7 +56,7 @@ public class Subscription extends AbstractEntity {
 		Salary = salary;
 	}
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "maid_id")
 	public Maid getMaid() {
 		return maid;
@@ -61,18 +66,17 @@ public class Subscription extends AbstractEntity {
 		this.maid = maid;
 	}
 
-	@OneToOne
-	@JoinColumn(name = "customer_id")
-	public Customer getCustomer() {
-		return customer;
-	}
+	/*
+	 * @OneToOne(fetch=FetchType.LAZY)
+	 * 
+	 * @JoinColumn(name = "customer_id") public Customer getCustomer() { return
+	 * customer; }
+	 * 
+	 * public void setCustomer(Customer customer) { this.customer = customer; }
+	 */
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
-	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	//@Temporal(TemporalType.DATE)
+	// @Temporal(TemporalType.DATE)
 	@Column(name = "created_date")
 	public LocalDate getCreatedDate() {
 		return createdDate;
@@ -82,11 +86,4 @@ public class Subscription extends AbstractEntity {
 		this.createdDate = createdDate;
 	}
 
-	@Override
-	public String toString() {
-		return "Subscription [serviceType=" + serviceType + ", Salary=" + Salary + ", maid=" + maid + ", customer="
-				+ customer + ", createdDate=" + createdDate + "]";
-	}
-	
-	
 }

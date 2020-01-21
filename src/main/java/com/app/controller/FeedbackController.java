@@ -40,7 +40,7 @@ public class FeedbackController {
 		return new ResponseEntity<String>("Feedback not submitted", HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "getFeedback", method = RequestMethod.GET)
+	@RequestMapping(value = "getFeedback", method = RequestMethod.POST)
 	public ResponseEntity<?> getFeedback(@RequestBody Integer id) {
 
 		Feedback feedback = feedbackService.getFeedback(id);

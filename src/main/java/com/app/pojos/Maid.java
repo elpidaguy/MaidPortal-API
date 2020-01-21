@@ -8,7 +8,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -18,6 +20,8 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tbl_maids")
@@ -33,7 +37,7 @@ public class Maid extends AbstractEntity {
 	private LocalDate dateCreated;
 	private MaritalStatus maritalStatus;
 	private Gender gender;
-
+	// private Customer cust_id;
 	private List<Salary> salaryList; // HELPER METHOD
 	private List<Subscription> subscriptionList; // HELPER METHOD
 	private Feedback feedback;
@@ -63,7 +67,9 @@ public class Maid extends AbstractEntity {
 		this.subscriptionList = subscriptionList;
 	}
 
-	//@OneToOne(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
+	// @OneToOne(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne
+	@JoinColumn(name = "feedback_id")
 	public Feedback getFeedback() {
 		return feedback;
 	}
@@ -72,6 +78,7 @@ public class Maid extends AbstractEntity {
 		this.feedback = feedback;
 	}
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Subscription> getSubscriptionList() {
 		return subscriptionList;
@@ -81,6 +88,7 @@ public class Maid extends AbstractEntity {
 		this.subscriptionList = subscriptionList;
 	}
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Salary> getSalaryList() {
 		return salaryList;
@@ -224,7 +232,7 @@ public class Maid extends AbstractEntity {
 	}
 
 	// toString Added
-	
+
 	/*
 	 * public void addSalary(Salary sal) { salaryList.add(sal); sal.setMaid(this); }
 	 */
