@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.pojos.Maid;
@@ -52,8 +53,10 @@ public class MaidController {
 	}
 
 	@RequestMapping(value = "/getAllMaids", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllMaids() {
-		return new ResponseEntity<List<Maid>>(maidService.getAllMaids(), HttpStatus.OK);
+	public ResponseEntity<?> getAllMaids(@RequestParam(defaultValue = "0") Integer pageNo,
+			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
+		
+		return new ResponseEntity<List<Maid>>(maidService.getAllMaids(pageNo, pageSize, sortBy), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/updateMaid", method = RequestMethod.POST)

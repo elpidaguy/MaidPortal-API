@@ -1,9 +1,14 @@
 package com.app.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.IMaidDao;
@@ -54,9 +59,14 @@ public class MaidServiceImpl implements IMaidService {
 	}
 
 	@Override
-	public List<Maid> getAllMaids() {
+	public List<Maid> getAllMaids(Integer pageNo, Integer pageSize, String sortBy) {
 
-		return maidDao.findAll();
+		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+		Page<Maid> pagedResult = maidDao.findAll(paging);
+		if (pagedResult.hasContent()) {
+			return pagedResult.getContent();
+		}
+		return new ArrayList<Maid>();
 	}
 
 	@Override
@@ -85,7 +95,7 @@ public class MaidServiceImpl implements IMaidService {
 		 * (optional.isPresent()) { maid.set_isActive(false); maidDao.save(maid); return
 		 * true; }
 		 */
-		
+
 		Maid temp2 = maidDao.loginMaid(maid.getUserName(), maid.getPassword());
 		if (temp2 != null) {
 			maid.set_isActive(false);
@@ -97,7 +107,7 @@ public class MaidServiceImpl implements IMaidService {
 
 	@Override
 	public Maid getMaidByEmail(String email) {
-		
+
 		/*
 		 * maid.setEmail(email); Example<Maid> example = Example.of(maid);
 		 * Optional<Maid> optional = maidDao.findOne(example);
