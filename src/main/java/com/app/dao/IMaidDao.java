@@ -1,8 +1,11 @@
 package com.app.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.app.pojos.Maid;
@@ -12,7 +15,13 @@ public interface IMaidDao extends JpaRepository<Maid, Integer>, PagingAndSorting
 
 	@Query("select m from Maid m where m.userName = ?1  and m.password = ?2")
 	Maid loginMaid(String username, String password);
-	
+
 	@Query("select m from Maid m where m.email = ?1")
 	Maid getMaidByEmail(String email);
+
+	@Query(value = "select * from tbl_maids m limit :start , :numberOfRecords", nativeQuery = true)
+	List<Maid> getMaids(@Param("start") int start, @Param("numberOfRecords") int numberOfRecords);
+
+	@Query("select count(m.id) from Maid m")
+	int getNumberOfRows();
 }

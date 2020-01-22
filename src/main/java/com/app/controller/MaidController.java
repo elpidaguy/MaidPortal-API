@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.pojos.BaseWrapper;
 import com.app.pojos.Maid;
 import com.app.service.IMaidService;
 
@@ -52,11 +53,29 @@ public class MaidController {
 		return new ResponseEntity<String>("Maid Not Found", HttpStatus.OK);
 	}
 
+	/*
+	 * @RequestMapping(value = "/getAllMaids", method = RequestMethod.GET) public
+	 * ResponseEntity<?> getAllMaids(@RequestParam(defaultValue = "0") Integer
+	 * pageNo,
+	 * 
+	 * @RequestParam(defaultValue = "10") Integer
+	 * pageSize, @RequestParam(defaultValue = "id") String sortBy) {
+	 * 
+	 * return new ResponseEntity<List<Maid>>(maidService.getAllMaids(pageNo,
+	 * pageSize, sortBy), HttpStatus.OK); }
+	 */
+
 	@RequestMapping(value = "/getAllMaids", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllMaids(@RequestParam(defaultValue = "0") Integer pageNo,
-			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy) {
-		
-		return new ResponseEntity<List<Maid>>(maidService.getAllMaids(pageNo, pageSize, sortBy), HttpStatus.OK);
+	public ResponseEntity<?> getAllMaids(@RequestBody BaseWrapper baseWrapper) {
+
+		BaseWrapper temp = new BaseWrapper();
+		temp.setItems(maidService.getAllMaids(baseWrapper.getMeta().getPage(), baseWrapper.getMeta().getPageSize()));
+		temp.getMeta().setPage(baseWrapper.getMeta().getPage());
+		temp.getMeta().setPageSize(baseWrapper.getMeta().getPageSize());
+		temp.getMeta().setTotalCount(maidService.getNumberOfRows());
+		temp.getMeta().setTotalPages((temp.getMeta().getTotalCount()) / (baseWrapper.getMeta().getPageSize()));
+		System.out.println(temp);
+		return new ResponseEntity<BaseWrapper>(temp, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/updateMaid", method = RequestMethod.POST)
