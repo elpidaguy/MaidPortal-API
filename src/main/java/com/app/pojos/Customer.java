@@ -73,8 +73,12 @@ public class Customer extends AbstractEntity {
 	}
 
 	@JsonIgnore
+/*<<<<<<< HEAD
 	//@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
 	@OneToMany(mappedBy = "customer")
+=======*/
+	@OneToMany(mappedBy = "customer")//, cascade = CascadeType.ALL, orphanRemoval = true)
+
 	public List<Salary> getSalaryList() {
 		return salaryList;
 	}

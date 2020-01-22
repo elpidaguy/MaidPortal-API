@@ -99,7 +99,6 @@ public class CustomerServiceImpl implements ICustomerService {
 		 * Example<Customer> exampleUser = Example.of(cust);
 		 */
 		Optional<Customer> optional = custDao.findById(customer.getId());
-
 		if (optional.isPresent()) {
 			optional.get().set_isActive(false);
 			custDao.save(optional.get());
