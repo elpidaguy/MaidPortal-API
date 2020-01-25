@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.pojos.Address;
-import com.app.pojos.Customer;
 import com.app.service.IAddressService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -22,8 +21,8 @@ public class AddressController {
 	IAddressService addressService;
 
 	@RequestMapping(value = "addAddress", method = RequestMethod.POST)
-	public ResponseEntity<String> addAddress(@RequestBody Address address, @RequestBody Customer customer) {
-		if (addressService.addAddress(address, customer)) {
+	public ResponseEntity<String> addAddress(@RequestBody Address address) {
+		if (addressService.addAddress(address)) {
 			return new ResponseEntity<String>("Address added successfully", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Address addition failed", HttpStatus.OK);
@@ -49,9 +48,9 @@ public class AddressController {
 	}
 
 	@RequestMapping(value = "deleteAddress", method = RequestMethod.POST)
-	public ResponseEntity<String> deleteAddress(@RequestBody Address address, @RequestBody Customer customer) {
+	public ResponseEntity<String> deleteAddress(@RequestBody Address address) {
 
-		if (addressService.deleteAddress(address, customer)) {
+		if (addressService.deleteAddress(address)) {
 			return new ResponseEntity<String>("Address Deleted", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Address deletion failed", HttpStatus.OK);

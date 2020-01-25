@@ -72,12 +72,12 @@ public class MaidServiceImpl implements IMaidService {
 		 * (optional.isPresent()) { maidDao.save(maid); return true; }
 		 */
 
-		Maid temp2 = maidDao.loginMaid(maid.getUserName(), maid.getPassword());
-		if (temp2 != null) {
-			maidDao.save(maid);
-			return true;
+		Optional<Maid> optional = maidDao.findById(maid.getId());
+		if (optional.isPresent()) {
+			return false;
 		}
-		return false;
+		maidDao.save(maid);
+		return true;
 	}
 
 	@Override
@@ -90,10 +90,10 @@ public class MaidServiceImpl implements IMaidService {
 		 * true; }
 		 */
 
-		Maid temp2 = maidDao.loginMaid(maid.getUserName(), maid.getPassword());
-		if (temp2 != null) {
-			maid.set_isActive(false);
-			maidDao.save(maid);
+		Optional<Maid> optional = maidDao.findById(maid.getId());
+		if (optional.isPresent()) {
+			optional.get().set_isActive(false);
+			maidDao.save(optional.get());
 			return true;
 		}
 		return false;

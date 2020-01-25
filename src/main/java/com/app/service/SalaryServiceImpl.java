@@ -48,8 +48,8 @@ public class SalaryServiceImpl implements ISalaryService {
 		 */
 		Optional<Salary> optional = salaryDao.findById(salary.getId());
 		if (optional.isPresent()) {
-			salary.set_isPaid(true);
-			salaryDao.save(salary);
+			optional.get().set_isPaid(true);
+			salaryDao.save(optional.get());
 			return true;
 		}
 		return false;
@@ -64,8 +64,8 @@ public class SalaryServiceImpl implements ISalaryService {
 		 */
 		Optional<Salary> optional = salaryDao.findById(salary.getId());
 		if (optional.isPresent()) {
-			salary.set_isDeleted(true);
-			salaryDao.save(salary);
+			optional.get().set_isDeleted(true);
+			salaryDao.save(optional.get());
 			return true;
 		}
 		return false;
