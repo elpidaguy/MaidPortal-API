@@ -8,6 +8,10 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.ICustomerDao;
@@ -68,10 +72,10 @@ public class CustomerServiceImpl implements ICustomerService {
 		return null;
 	}
 
-	@Override
-	public List<Customer> getAllCustomers() {
-		return custDao.findAll();
-	}
+	/*
+	 * @Override public List<Customer> getAllCustomers() { return custDao.findAll();
+	 * }
+	 */
 
 	// TODO : Please confirm the logic
 	@Override
@@ -118,6 +122,23 @@ public class CustomerServiceImpl implements ICustomerService {
 			return optional.get();
 		}
 		return null;
+	}
+
+	@Override
+	public List<Customer> getAllCustomers(Integer pageNo, Integer pageSize, String sortBy, String searchBy) {
+
+		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+		Page<Customer> pagedResult = custDao.findAll(paging);
+		if (pagedResult.hasContent()) {
+			return pagedResult.getContent();
+		}
+		return null;
+	}
+
+	@Override
+	public int getNumberOfRows() {
+
+		return custDao.getNumberOfRows();
 	}
 
 }

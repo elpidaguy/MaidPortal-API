@@ -7,6 +7,7 @@ public class BaseWrapper {
 	private List<?> items;
 
 	public class Meta {
+		
 		private int page, pageSize, totalCount, totalPages;
 
 		public int getPage() {
@@ -51,16 +52,6 @@ public class BaseWrapper {
 
 	}
 
-	Meta meta;
-
-	public Meta getMeta() {
-		return meta;
-	}
-
-	public void setMeta(Meta meta) {
-		this.meta = meta;
-	}
-
 	public List<?> getItems() {
 		return items;
 	}
@@ -68,11 +59,5 @@ public class BaseWrapper {
 	public void setItems(List<?> items) {
 		this.items = items;
 	}
-
-	@Override
-	public String toString() {
-		return "BaseWrapper [items=" + items + ", meta=" + meta + "]";
-	}
-
 	
 }

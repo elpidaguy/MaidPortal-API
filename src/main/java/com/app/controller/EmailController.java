@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.pojos.Email;
 import com.app.service.ICustomerService;
 import com.app.service.IMaidService;
 
@@ -21,6 +20,8 @@ import com.app.service.IMaidService;
 @RestController
 @RequestMapping("/email")
 public class EmailController {
+	
+	String otp;
 
 	@Autowired
 	JavaMailSender sender;
@@ -31,22 +32,23 @@ public class EmailController {
 	@Autowired
 	IMaidService maidService;
 
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<String> sendMail(@RequestBody Email email) {
+	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
+	public ResponseEntity<String> sendMail(@RequestBody String email) {
 
-		if (customerSrvice.getCustomerByEmail(email.getDestEmail()) !=null || maidService.getMaidByEmail(email.getDestEmail()) != null) {
+		if (customerSrvice.getCustomerByEmail(email) != null
+				|| maidService.getMaidByEmail(email) != null) {
 			Random random = new Random();
-			email.setMessage("OTP is " + random.nextInt(9999));
+			otp = ("OTP is " + random.nextInt(9999));
 			SimpleMailMessage message = new SimpleMailMessage();
 			message.setFrom("cdacmaidportal@gmail.com");
-			message.setTo(email.getDestEmail());
-			message.setSubject(email.getSubject());
-			message.setText(email.getMessage());
+			message.setTo(email);
+			message.setSubject("Maid portal otp");
+			message.setText(otp);
 			sender.send(message);
 			return new ResponseEntity<String>("Email Sent", HttpStatus.OK);
 		}
-			return new ResponseEntity<String>("Invalid email", HttpStatus.OK);
-		
+		return new ResponseEntity<String>("Invalid email", HttpStatus.OK);
+
 	}
 
 }

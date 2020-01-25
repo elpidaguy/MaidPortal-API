@@ -3,7 +3,6 @@ package com.app.pojos;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -26,6 +25,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "tbl_customers")
 public class Customer extends AbstractEntity {
+
+	@Override
+	public String toString() {
+		return "Customer [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", email="
+				+ email + ", phone=" + phone + ", password=" + password + ", imgUrl=" + imgUrl + ", aadharCardNo="
+				+ aadharCardNo + ", _isActive=" + _isActive + ", dateCreated=" + dateCreated + ", maritalStatus="
+				+ maritalStatus + ", gender=" + gender + ", address=" + address + ", salaryList=" + salaryList
+				+ ", subscription=" + subscription + ", feedback=" + feedback + "]";
+	}
 
 	/**
 	 * 

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.pojos.BaseWrapper;
@@ -50,30 +51,39 @@ public class MaidController {
 		return new ResponseEntity<String>("Maid Not Found", HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/getAllMaids", method = RequestMethod.GET)
+	public ResponseEntity<?> getAllMaids(@RequestParam(defaultValue = "0") Integer pageNo,
+			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy,
+			@RequestParam(defaultValue = "") String searchBy) {
+
+		BaseWrapper baseWrapper = new BaseWrapper();
+		BaseWrapper.Meta meta = baseWrapper.new Meta();
+		int numberOfRows = maidService.getNumberOfRows();
+		baseWrapper.setItems(maidService.getAllMaids(pageNo, pageSize, sortBy, searchBy));
+		if (baseWrapper.getItems() != null) {
+			meta.setPage(pageNo);
+			meta.setPageSize(pageSize);
+			meta.setTotalCount(numberOfRows);
+			meta.setTotalPages(numberOfRows / pageSize);
+			return new ResponseEntity<BaseWrapper>(baseWrapper, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>("Nothing found", HttpStatus.OK);
+	}
+
 	/*
 	 * @RequestMapping(value = "/getAllMaids", method = RequestMethod.GET) public
-	 * ResponseEntity<?> getAllMaids(@RequestParam(defaultValue = "0") Integer
-	 * pageNo,
+	 * ResponseEntity<?> getAllMaids(@RequestBody BaseWrapper baseWrapper) {
 	 * 
-	 * @RequestParam(defaultValue = "10") Integer
-	 * pageSize, @RequestParam(defaultValue = "id") String sortBy) {
-	 * 
-	 * return new ResponseEntity<List<Maid>>(maidService.getAllMaids(pageNo,
-	 * pageSize, sortBy), HttpStatus.OK); }
+	 * BaseWrapper temp = new BaseWrapper();
+	 * temp.setItems(maidService.getAllMaids(baseWrapper.getMeta().getPage(),
+	 * baseWrapper.getMeta().getPageSize()));
+	 * temp.getMeta().setPage(baseWrapper.getMeta().getPage());
+	 * temp.getMeta().setPageSize(baseWrapper.getMeta().getPageSize());
+	 * temp.getMeta().setTotalCount(maidService.getNumberOfRows());
+	 * temp.getMeta().setTotalPages((temp.getMeta().getTotalCount()) /
+	 * (baseWrapper.getMeta().getPageSize())); System.out.println(temp); return new
+	 * ResponseEntity<BaseWrapper>(temp, HttpStatus.OK); }
 	 */
-
-	@RequestMapping(value = "/getAllMaids", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllMaids(@RequestBody BaseWrapper baseWrapper) {
-
-		BaseWrapper temp = new BaseWrapper();
-		temp.setItems(maidService.getAllMaids(baseWrapper.getMeta().getPage(), baseWrapper.getMeta().getPageSize()));
-		temp.getMeta().setPage(baseWrapper.getMeta().getPage());
-		temp.getMeta().setPageSize(baseWrapper.getMeta().getPageSize());
-		temp.getMeta().setTotalCount(maidService.getNumberOfRows());
-		temp.getMeta().setTotalPages((temp.getMeta().getTotalCount()) / (baseWrapper.getMeta().getPageSize()));
-		System.out.println(temp);
-		return new ResponseEntity<BaseWrapper>(temp, HttpStatus.OK);
-	}
 
 	@RequestMapping(value = "/updateMaid", method = RequestMethod.POST)
 	public ResponseEntity<?> updateMaid(@RequestBody Maid maid) {

@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.IMaidDao;
@@ -53,15 +57,16 @@ public class MaidServiceImpl implements IMaidService {
 		return null;
 	}
 
-	/*
-	 * @Override public List<Maid> getAllMaids(Integer pageNo, Integer pageSize,
-	 * String sortBy) {
-	 * 
-	 * Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-	 * Page<Maid> pagedResult = maidDao.findAll(paging); if
-	 * (pagedResult.hasContent()) { return pagedResult.getContent(); } return new
-	 * ArrayList<Maid>(); }
-	 */
+	@Override
+	public List<Maid> getAllMaids(Integer pageNo, Integer pageSize, String sortBy, String searchBy) {
+
+		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+		Page<Maid> pagedResult = maidDao.findAll(paging);
+		if (pagedResult.hasContent()) {
+			return pagedResult.getContent();
+		}
+		return null;
+	}
 
 	@Override
 	public boolean updateMaid(Maid maid) {
@@ -114,14 +119,14 @@ public class MaidServiceImpl implements IMaidService {
 		return null;
 	}
 
-	@Override
-	public List<Maid> getAllMaids(int currentPage, int numberOfRecords) {
-
-		List<Maid> maids = null;
-		int start = currentPage * numberOfRecords - numberOfRecords;
-		maids = maidDao.getMaids(start, numberOfRecords);
-		return maids;
-	}
+	/*
+	 * @Override public List<Maid> getAllMaids(int currentPage, int numberOfRecords)
+	 * {
+	 * 
+	 * List<Maid> maids = null; int start = currentPage * numberOfRecords -
+	 * numberOfRecords; maids = maidDao.getMaids(start, numberOfRecords); return
+	 * maids; }
+	 */
 
 	@Override
 	public int getNumberOfRows() {

@@ -3,7 +3,6 @@ package com.app.pojos;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -79,7 +78,7 @@ public class Maid extends AbstractEntity {
 	}
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "maid")//, cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Subscription> getSubscriptionList() {
 		return subscriptionList;
 	}
@@ -89,7 +88,7 @@ public class Maid extends AbstractEntity {
 	}
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "maid", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "maid")//, cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Salary> getSalaryList() {
 		return salaryList;
 	}
