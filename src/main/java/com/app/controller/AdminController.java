@@ -53,8 +53,8 @@ public class AdminController {
 	//Maid services
 	@RequestMapping(value = "/deleteMaid", method = RequestMethod.POST)
 	public ResponseEntity<?> deleteMaid(@RequestBody Maid maid) {
-
-		if (maidService.deleteMaid(maid)) {
+		boolean _isDeleted = maidService.deleteMaid(maid);
+		if (_isDeleted) {
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		}
 
