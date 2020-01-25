@@ -94,8 +94,9 @@ public class MaidServiceImpl implements IMaidService {
 		 * (optional.isPresent()) { maid.set_isActive(false); maidDao.save(maid); return
 		 * true; }
 		 */
-
+		 
 		Optional<Maid> optional = maidDao.findById(maid.getId());
+		
 		if (optional.isPresent()) {
 			optional.get().set_isActive(false);
 			maidDao.save(optional.get());
@@ -127,6 +128,21 @@ public class MaidServiceImpl implements IMaidService {
 	 * numberOfRecords; maids = maidDao.getMaids(start, numberOfRecords); return
 	 * maids; }
 	 */
+	
+	@Override
+	public List<Maid> getAllMaidList(){
+		return maidDao.findAll();
+		//commented code in case of Only Acitve maids are required
+//		List<Maid> allMaid=maidDao.findAll();
+//		List<Maid> activeMaid=new ArrayList<Maid>();
+//		for (Maid maid : allMaid) {
+//			if(maid.is_isActive()) {
+//				activeMaid.add(maid);
+//			}
+//		}
+//		System.out.println("lsit"+activeMaid);
+//		return activeMaid;
+	}
 
 	@Override
 	public int getNumberOfRows() {
