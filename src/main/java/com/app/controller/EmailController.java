@@ -1,11 +1,10 @@
 package com.app.controller;
 
-import java.util.Random;
+import javax.mail.internet.AddressException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.service.ICustomerService;
 import com.app.service.IMaidService;
+import com.app.service.IMailService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -28,27 +28,48 @@ public class EmailController {
 
 	@Autowired
 	ICustomerService customerSrvice;
+	
+	@Autowired
+	IMailService mailService;
 
 	@Autowired
 	IMaidService maidService;
 
 	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
-	public ResponseEntity<String> sendMail(@RequestBody String email) {
-
-		if (customerSrvice.getCustomerByEmail(email) != null
-				|| maidService.getMaidByEmail(email) != null) {
-			Random random = new Random();
-			otp = ("OTP is " + random.nextInt(9999));
-			SimpleMailMessage message = new SimpleMailMessage();
-			message.setFrom("cdacmaidportal@gmail.com");
-			message.setTo(email);
-			message.setSubject("Maid portal otp");
-			message.setText(otp);
-			sender.send(message);
+	public ResponseEntity<String> sendMail(@RequestBody String email) throws AddressException {
+		
+//	if (customerSrvice.getCustomerByEmail(email) != null || maidService.getMaidByEmail(email) != null) {
+		mailService.sendMail(email);
 			return new ResponseEntity<String>("Email Sent", HttpStatus.OK);
-		}
-		return new ResponseEntity<String>("Invalid email", HttpStatus.OK);
+//		}
+//		return new ResponseEntity<String>("Invalid email", HttpStatus.OK);
 
 	}
-
 }
+	
+	
+
+
+
+
+
+
+	
+	
+	//String replyTO=new InternetAddress(email);
+//	if (customerSrvice.getCustomerByEmail(email) != null
+//			|| maidService.getMaidByEmail(email) != null) {
+	
+//		Random random = new Random();
+//		otp = ("OTP is " + random.nextInt(9999));
+//		SimpleMailMessage message = new SimpleMailMessage();
+//		message.setFrom("maidportalgajanan@gmail.com");	
+//		
+//		//message.setTo("cdacmaidportal@gmail.com");
+//	
+//		message.setTo(email);
+//		message.setSubject("Maid portal otp");
+//		message.setText(otp);
+//		sender.send(message);
+		
+

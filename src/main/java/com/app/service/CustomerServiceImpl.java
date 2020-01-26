@@ -112,7 +112,8 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public Customer getCustomerByEmail(String email) {
+	public Customer getCustomerByEmail(String email) 
+	{
 		Customer customer = new Customer();
 		customer.setEmail(email);
 		customer.set_isActive(true);

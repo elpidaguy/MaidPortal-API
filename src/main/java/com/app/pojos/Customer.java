@@ -137,9 +137,9 @@ public class Customer extends AbstractEntity {
 	}
 
 	@NotEmpty
-	@Length(min = 5, max = 25)
+	@Length(min = 5, max = 55)
 	@Email(message = "Please Enter Valid Email Address!")
-	@Column(length = 35, name = "email", unique = true)
+	@Column(length = 55, name = "email", unique = true)
 	public String getEmail() {
 		return email;
 	}
