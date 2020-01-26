@@ -5,9 +5,18 @@ import java.util.List;
 public class BaseWrapper {
 
 	private List<?> items;
+	private Meta meta;
+
+	public Meta getMeta() {
+		return meta;
+	}
+
+	public void setMeta(Meta meta) {
+		this.meta = meta;
+	}
 
 	public class Meta {
-		
+
 		private int page, pageSize, totalCount, totalPages;
 
 		public int getPage() {
@@ -47,8 +56,6 @@ public class BaseWrapper {
 			return "Meta [page=" + page + ", pageSize=" + pageSize + ", totalCount=" + totalCount + ", totalPages="
 					+ totalPages + "]";
 		}
-		
-		
 
 	}
 
@@ -59,5 +66,5 @@ public class BaseWrapper {
 	public void setItems(List<?> items) {
 		this.items = items;
 	}
-	
+
 }
