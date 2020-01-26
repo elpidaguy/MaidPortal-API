@@ -21,7 +21,7 @@ import com.app.service.IMailService;
 @RequestMapping("/email")
 public class EmailController {
 	
-	String otp;
+	//String otp;
 
 	@Autowired
 	JavaMailSender sender;
@@ -35,6 +35,14 @@ public class EmailController {
 	@Autowired
 	IMaidService maidService;
 
+	@RequestMapping(value="/confirmOTP",method= RequestMethod.POST)
+	public ResponseEntity<String> confirmOTP(@RequestParam String OTP){
+		if(mailService.confirmOTP(OTP)) {
+			return new ResponseEntity<String>("OTP Confirmed",HttpStatus.OK);
+		}
+		return new ResponseEntity<String>("Invalid OTP", HttpStatus.OK);
+	}
+	
 	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
 	public ResponseEntity<String> sendMail(@RequestParam String email) throws AddressException {
 		
