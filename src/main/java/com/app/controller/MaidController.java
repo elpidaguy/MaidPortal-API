@@ -54,16 +54,16 @@ public class MaidController {
 	}
 
 	@RequestMapping(value = "/getAllMaids", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllMaids(@RequestParam(defaultValue = "0") Integer pageNo,
+	public ResponseEntity<?> getAllMaids(@RequestParam(defaultValue = "1") Integer pageNo,
 			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy,
 			@RequestParam(defaultValue = "") String searchBy) {
 
 		BaseWrapper baseWrapper = new BaseWrapper();
 		BaseWrapper.Meta meta = baseWrapper.new Meta();
 		int numberOfRows = maidService.getNumberOfRows();
-		baseWrapper.setItems(maidService.getAllMaids(pageNo, pageSize, sortBy, searchBy));
+		baseWrapper.setItems(maidService.getAllMaids((pageNo-1), pageSize, sortBy, searchBy));
 		if (baseWrapper.getItems() != null) {
-			meta.setPage(pageNo+1);
+			meta.setPage(pageNo);
 			meta.setPageSize(pageSize);
 			meta.setTotalCount(numberOfRows);
 			meta.setTotalPages((numberOfRows / pageSize)+1);

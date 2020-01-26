@@ -84,18 +84,18 @@ public class CustomerController {
 	}
 
 	@RequestMapping(value = "/getAllCustomers", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllCustomers(@RequestParam(defaultValue = "0") Integer pageNo,
+	public ResponseEntity<?> getAllCustomers(@RequestParam(defaultValue = "1") Integer pageNo,
 			@RequestParam(defaultValue = "10") Integer pageSize, @RequestParam(defaultValue = "id") String sortBy,
 			@RequestParam(defaultValue = "") String searchBy) {
 
 		BaseWrapper baseWrapper = new BaseWrapper();
 		BaseWrapper.Meta meta = baseWrapper.new Meta();
 		int numberOfRows = service.getNumberOfRows();
-		List<Customer> list = service.getAllCustomers(pageNo, pageSize, sortBy, searchBy);
+		List<Customer> list = service.getAllCustomers((pageNo-1), pageSize, sortBy, searchBy);
 		System.out.println(numberOfRows + "," + list);
 		baseWrapper.setItems(list);
 		if (list != null) {
-			meta.setPage(pageNo+1);
+			meta.setPage(pageNo);
 			meta.setPageSize(pageSize);
 			meta.setTotalCount(numberOfRows);
 			meta.setTotalPages((numberOfRows / pageSize)+1);
