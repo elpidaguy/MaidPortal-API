@@ -4,6 +4,7 @@
 package com.app.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -28,4 +29,7 @@ public interface ICustomerDao extends JpaRepository<Customer, Integer>, PagingAn
 	@Query("select count(c.id) from Customer c")
 	int getNumberOfRows();
 
+	@Query("select c from Customer c where c.email = ?1")
+	Customer getCustomerByEmail(String email);
+	
 }

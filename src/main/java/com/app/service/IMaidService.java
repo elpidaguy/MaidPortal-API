@@ -16,4 +16,5 @@ public interface IMaidService {
 	public boolean deleteMaid(Maid maid);
 	public int getNumberOfRows();
 	public List<Maid> getAllMaidList();
+	public boolean resetPassword(String email,String newPassword);
 }

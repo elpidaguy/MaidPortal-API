@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.IMaidDao;
+import com.app.pojos.Customer;
 import com.app.pojos.Maid;
 
 @Service
@@ -144,6 +145,21 @@ public class MaidServiceImpl implements IMaidService {
 //		return activeMaid;
 	}
 
+	@Override
+	public boolean resetPassword(String email,String newPassword) {
+		
+		Maid maid=maidDao.getMaidByEmail(email);
+		//System.out.println("Maid tracked :\n"+maid.toString());
+		Optional<Maid> optional = maidDao.findById(maid.getId());
+		if(optional.isPresent()) {
+			optional.get().setPassword(newPassword);
+			System.out.println("Optional Reset"+optional.get());
+			maidDao.save(optional.get());
+			return true;
+		}
+		return false;
+	}
+	
 	@Override
 	public int getNumberOfRows() {
 

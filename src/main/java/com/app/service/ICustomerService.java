@@ -31,6 +31,8 @@ public interface ICustomerService {
 	
 	public int getNumberOfRows();
 	
+	public boolean resetPassword(String email,String newPassword);
+	
 //	public Customer Login(String username, String password); //with string username pass
 
 }
