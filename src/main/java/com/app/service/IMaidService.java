@@ -15,5 +15,5 @@ public interface IMaidService {
 	public boolean updateMaid(Maid maid);
 	public boolean deleteMaid(Maid maid);
 	public int getNumberOfRows();
-	
+	public List<Maid> getAllMaidList();
 }

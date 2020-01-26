@@ -1,5 +1,7 @@
 package com.app.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -75,6 +77,12 @@ public class MaidController {
 		return new ResponseEntity<String>("Nothing found", HttpStatus.OK);
 	}
 
+	@RequestMapping(value = "/getAllMaidList", method = RequestMethod.GET)
+	public ResponseEntity<?> getAllMaidList() {
+	 
+		return new ResponseEntity<List<Maid>>(maidService.getAllMaidList(), HttpStatus.OK);
+	}
+
 	/*
 	 * @RequestMapping(value = "/getAllMaids", method = RequestMethod.GET) public
 	 * ResponseEntity<?> getAllMaids(@RequestBody BaseWrapper baseWrapper) {
@@ -89,7 +97,7 @@ public class MaidController {
 	 * (baseWrapper.getMeta().getPageSize())); System.out.println(temp); return new
 	 * ResponseEntity<BaseWrapper>(temp, HttpStatus.OK); }
 	 */
-
+	
 	@RequestMapping(value = "/updateMaid", method = RequestMethod.POST)
 	public ResponseEntity<?> updateMaid(@RequestBody Maid maid) {
 
