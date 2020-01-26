@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,15 +34,14 @@ public class MaidController {
 		return new ResponseEntity<String>("Something went wrong", HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<?> login(@RequestBody Maid maid) {
-
-		Maid temp = maidService.login(maid);
-		if (temp != null) {
-			return new ResponseEntity<Maid>(temp, HttpStatus.OK);
-		}
-		return new ResponseEntity<String>("Authentication failed", HttpStatus.OK);
-	}
+	/*
+	 * @RequestMapping(value = "/login", method = RequestMethod.POST) public
+	 * ResponseEntity<?> login(@RequestBody Maid maid) {
+	 * 
+	 * Maid temp = maidService.login(maid); if (temp != null) { return new
+	 * ResponseEntity<Maid>(temp, HttpStatus.OK); } return new
+	 * ResponseEntity<String>("Authentication failed", HttpStatus.OK); }
+	 */
 
 	@RequestMapping(value = "/getMaid/{id}")
 	public ResponseEntity<?> getMaid(@PathVariable Integer id) {

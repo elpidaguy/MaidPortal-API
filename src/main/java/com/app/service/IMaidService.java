@@ -7,7 +7,7 @@ import com.app.pojos.Maid;
 public interface IMaidService {
 
 	public boolean register(Maid maid);
-	public Maid login(Maid maid);
+	public Maid login(String email, String password);
 	public Maid getMaid(Integer id);
 	public Maid getMaidByEmail(String email);
 	//public List<Maid> getAllMaids(int currentPage, int numberOfRecords);

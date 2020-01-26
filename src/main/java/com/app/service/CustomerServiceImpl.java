@@ -42,20 +42,22 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public Customer login(Customer customer) {
-		Customer cust = new Customer();
-
-		cust.setUserName(customer.getUserName());
-		cust.setPassword(customer.getPassword());
-		cust.set_isActive(true);
-
-		Example<Customer> exampleuser = Example.of(cust);
-		Optional<Customer> optional = custDao.findOne(exampleuser);
+	public Customer login(String email, String password) {
+		/*
+		 * Customer cust = new Customer();
+		 * 
+		 * cust.setUserName(customer.getUserName());
+		 * cust.setPassword(customer.getPassword()); cust.set_isActive(true);
+		 * 
+		 * Example<Customer> exampleuser = Example.of(cust); Optional<Customer> optional
+		 * = custDao.findOne(exampleuser);
+		 */
 		// select * from Customer c where c.username = username and c.password =
 		// passweord
 
-		if (optional.isPresent()) {
-			return optional.get();
+		Customer customer = custDao.login(email, password);
+		if (customer != null) {
+			return customer;
 		}
 
 		return null;
@@ -112,8 +114,7 @@ public class CustomerServiceImpl implements ICustomerService {
 	}
 
 	@Override
-	public Customer getCustomerByEmail(String email) 
-	{
+	public Customer getCustomerByEmail(String email) {
 		Customer customer = new Customer();
 		customer.setEmail(email);
 		customer.set_isActive(true);

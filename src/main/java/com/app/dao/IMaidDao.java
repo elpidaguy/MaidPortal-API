@@ -10,8 +10,8 @@ import com.app.pojos.Maid;
 @Repository
 public interface IMaidDao extends JpaRepository<Maid, Integer>, PagingAndSortingRepository<Maid, Integer> {
 
-	@Query("select m from Maid m where m.userName = ?1  and m.password = ?2")
-	Maid loginMaid(String username, String password);
+	@Query("select m from Maid m where m.email = ?1  and m.password = ?2")
+	Maid login(String email, String password);
 
 	@Query("select m from Maid m where m.email = ?1")
 	Maid getMaidByEmail(String email);

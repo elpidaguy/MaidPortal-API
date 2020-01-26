@@ -26,20 +26,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "tbl_customers")
 public class Customer extends AbstractEntity {
 
-	@Override
-	public String toString() {
-		return "Customer [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", email="
-				+ email + ", phone=" + phone + ", password=" + password + ", imgUrl=" + imgUrl + ", aadharCardNo="
-				+ aadharCardNo + ", _isActive=" + _isActive + ", dateCreated=" + dateCreated + ", maritalStatus="
-				+ maritalStatus + ", gender=" + gender + ", address=" + address + ", salaryList=" + salaryList
-				+ ", subscription=" + subscription + ", feedback=" + feedback + "]";
-	}
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-	private String firstName, lastName, userName, email, phone, password, imgUrl;
+	private String firstName, lastName, email, phone, password, imgUrl;
 	private String aadharCardNo;
 	private boolean _isActive;
 	private LocalDate dateCreated;
@@ -126,16 +114,14 @@ public class Customer extends AbstractEntity {
 		this.lastName = lastName;
 	}
 
-	@NotEmpty
-	@Column(length = 30, name = "username")
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
+	/*
+	 * @NotEmpty
+	 * 
+	 * @Column(length = 30, name = "username") public String getUserName() { return
+	 * userName; }
+	 * 
+	 * public void setUserName(String userName) { this.userName = userName; }
+	 */
 	@NotEmpty
 	@Length(min = 5, max = 55)
 	@Email(message = "Please Enter Valid Email Address!")
@@ -191,8 +177,6 @@ public class Customer extends AbstractEntity {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-
-	// @Temporal(TemporalType.DATE) //i think we should use this for Date Created..
 	@Column(name = "created_date")
 	public LocalDate getDateCreated() {
 		return dateCreated;
@@ -230,6 +214,18 @@ public class Customer extends AbstractEntity {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
+
+	@Override
+	public String toString() {
+		return "Customer [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phone=" + phone
+				+ ", password=" + password + ", imgUrl=" + imgUrl + ", aadharCardNo=" + aadharCardNo + ", _isActive="
+				+ _isActive + ", dateCreated=" + dateCreated + ", maritalStatus=" + maritalStatus + ", gender=" + gender
+				+ ", address=" + address + ", salaryList=" + salaryList + ", subscription=" + subscription
+				+ ", feedback=" + feedback + "]";
+	}
+	
+	
+	
 	/*
 	 * public void addSalary(Salary sal) { salaryList.add(sal);
 	 * sal.setCustomer(this); }

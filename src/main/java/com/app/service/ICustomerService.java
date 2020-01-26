@@ -15,7 +15,7 @@ public interface ICustomerService {
 
 	public boolean register(Customer customer);
 
-	public Customer login(Customer customer);
+	public Customer login(String email, String password);
 
 	public Customer getCustomer(Integer id);
 

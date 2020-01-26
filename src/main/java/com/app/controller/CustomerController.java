@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,8 +39,8 @@ public class CustomerController {
 	 * ResponseEntity<List<Customer>>(service.getAllCustomers(), HttpStatus.OK); }
 	 */
 
-	@RequestMapping(value = "/getCustomer", method = RequestMethod.POST)
-	public ResponseEntity<?> getCustomer(@RequestBody Integer id) {
+	@RequestMapping(value = "/getCustomer/{id}")
+	public ResponseEntity<?> getCustomer(@PathVariable Integer id) {
 		Customer temp = service.getCustomer(id);
 
 		if (temp != null) {
@@ -60,16 +61,17 @@ public class CustomerController {
 		return new ResponseEntity<String>("Customer Not Found", HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<?> login(@RequestBody Customer customer) {
-		Customer temp = service.login(customer);
-
-		if (temp != null) {
-			return new ResponseEntity<Customer>(temp, HttpStatus.OK);
-		}
-
-		return new ResponseEntity<String>("Incorrect Username/Password!", HttpStatus.OK);
-	}
+	/*
+	 * @RequestMapping(value = "/login", method = RequestMethod.POST) public
+	 * ResponseEntity<?> login(@RequestBody Customer customer) { Customer temp =
+	 * service.login(customer);
+	 * 
+	 * if (temp != null) { return new ResponseEntity<Customer>(temp, HttpStatus.OK);
+	 * }
+	 * 
+	 * return new ResponseEntity<String>("Incorrect Username/Password!",
+	 * HttpStatus.OK); }
+	 */
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ResponseEntity<?> register(@RequestBody Customer customer) {

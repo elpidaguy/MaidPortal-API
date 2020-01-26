@@ -31,7 +31,7 @@ public class MaidServiceImpl implements IMaidService {
 	}
 
 	@Override
-	public Maid login(Maid maid) {
+	public Maid login(String email,String password) {
 		/*
 		 * Maid temp = new Maid(); temp.setUserName(maid.getUserName());
 		 * temp.setPassword(maid.getPassword()); Example<Maid> example =
@@ -40,7 +40,7 @@ public class MaidServiceImpl implements IMaidService {
 		 * if (optional.isPresent()) { return optional.get(); }
 		 */
 
-		Maid temp2 = maidDao.loginMaid(maid.getUserName(), maid.getPassword());
+		Maid temp2 = maidDao.login(email, password);
 		if (temp2 != null) {
 			return temp2;
 		}

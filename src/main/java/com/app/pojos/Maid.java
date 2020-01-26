@@ -30,7 +30,7 @@ public class Maid extends AbstractEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String firstName, lastName, userName, email, phone, password, imgUrl, aadharCardNo;
+	private String firstName, lastName, email, phone, password, imgUrl, aadharCardNo;
 	private double salary;
 	private boolean _isActive;
 	private LocalDate dateCreated;
@@ -45,13 +45,12 @@ public class Maid extends AbstractEntity {
 	}
 
 	// Para CTOR added.
-	public Maid(String firstName, String lastName, String userName, String email, String phone, String password,
-			String imgUrl, String aadharCardNo, double salary, boolean _isActive, LocalDate dateCreated,
-			MaritalStatus maritalStatus, Gender gender, List<Salary> salaryList, List<Subscription> subscriptionList) {
+	public Maid(String firstName, String lastName, String email, String phone, String password, String imgUrl,
+			String aadharCardNo, double salary, boolean _isActive, LocalDate dateCreated, MaritalStatus maritalStatus,
+			Gender gender, List<Salary> salaryList, List<Subscription> subscriptionList) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.userName = userName;
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
@@ -78,7 +77,7 @@ public class Maid extends AbstractEntity {
 	}
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "maid")//, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "maid") // , cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Subscription> getSubscriptionList() {
 		return subscriptionList;
 	}
@@ -88,7 +87,7 @@ public class Maid extends AbstractEntity {
 	}
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "maid")//, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "maid") // , cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Salary> getSalaryList() {
 		return salaryList;
 	}
@@ -117,16 +116,14 @@ public class Maid extends AbstractEntity {
 		this.lastName = lastName;
 	}
 
-	@NotEmpty
-	@Column(length = 30, name = "username")
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
+	/*
+	 * @NotEmpty
+	 * 
+	 * @Column(length = 30, name = "username") public String getUserName() { return
+	 * userName; }
+	 * 
+	 * public void setUserName(String userName) { this.userName = userName; }
+	 */
 	@NotEmpty
 	@Length(min = 5, max = 25)
 	@Email(message = "Please Enter Valid Email Address!")
@@ -230,20 +227,20 @@ public class Maid extends AbstractEntity {
 		this.salary = salary;
 	}
 
+	@Override
+	public String toString() {
+		return "Maid [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phone=" + phone
+				+ ", password=" + password + ", imgUrl=" + imgUrl + ", aadharCardNo=" + aadharCardNo + ", salary="
+				+ salary + ", _isActive=" + _isActive + ", dateCreated=" + dateCreated + ", maritalStatus="
+				+ maritalStatus + ", gender=" + gender + ", salaryList=" + salaryList + ", subscriptionList="
+				+ subscriptionList + ", feedback=" + feedback + "]";
+	}
+
 	// toString Added
 
 	/*
 	 * public void addSalary(Salary sal) { salaryList.add(sal); sal.setMaid(this); }
 	 */
-
-	@Override
-	public String toString() {
-		return "Maid [firstName=" + firstName + ", lastName=" + lastName + ", userName=" + userName + ", email=" + email
-				+ ", phone=" + phone + ", password=" + password + ", imgUrl=" + imgUrl + ", aadharCardNo="
-				+ aadharCardNo + ", salary=" + salary + ", _isActive=" + _isActive + ", dateCreated=" + dateCreated
-				+ ", maritalStatus=" + maritalStatus + ", gender=" + gender + ", salaryList=" + salaryList
-				+ ", subscriptionList=" + subscriptionList + ", feedback=" + feedback + "]";
-	}
 
 	/*
 	 * public void removeSalary(Salary sal) { salaryList.remove(sal);
