@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tbl_Salary")
 public class Salary extends AbstractEntity {
@@ -43,6 +45,7 @@ public class Salary extends AbstractEntity {
 		this.serviceType = serviceType;
 	}
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "maid_id")
 	public Maid getMaid() {
@@ -53,6 +56,7 @@ public class Salary extends AbstractEntity {
 		this.maid = maid;
 	}
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "customer_id")
 	public Customer getCustomer() {

@@ -63,13 +63,13 @@ public class MaidController {
 		int numberOfRows = maidService.getNumberOfRows();
 		baseWrapper.setItems(maidService.getAllMaids(pageNo, pageSize, sortBy, searchBy));
 		if (baseWrapper.getItems() != null) {
-			meta.setPage(pageNo);
+			meta.setPage(pageNo+1);
 			meta.setPageSize(pageSize);
 			meta.setTotalCount(numberOfRows);
-			meta.setTotalPages(numberOfRows / pageSize);
-			
+			meta.setTotalPages((numberOfRows / pageSize)+1);
+
 			baseWrapper.setMeta(meta);
-			
+
 			return new ResponseEntity<BaseWrapper>(baseWrapper, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Nothing found", HttpStatus.OK);
@@ -77,7 +77,7 @@ public class MaidController {
 
 	@RequestMapping(value = "/getAllMaidList", method = RequestMethod.GET)
 	public ResponseEntity<?> getAllMaidList() {
-	 
+
 		return new ResponseEntity<List<Maid>>(maidService.getAllMaidList(), HttpStatus.OK);
 	}
 
@@ -95,7 +95,7 @@ public class MaidController {
 	 * (baseWrapper.getMeta().getPageSize())); System.out.println(temp); return new
 	 * ResponseEntity<BaseWrapper>(temp, HttpStatus.OK); }
 	 */
-	
+
 	@RequestMapping(value = "/updateMaid", method = RequestMethod.POST)
 	public ResponseEntity<?> updateMaid(@RequestBody Maid maid) {
 

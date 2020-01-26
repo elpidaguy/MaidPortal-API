@@ -95,10 +95,11 @@ public class CustomerController {
 		System.out.println(numberOfRows + "," + list);
 		baseWrapper.setItems(list);
 		if (list != null) {
-			meta.setPage(pageNo);
+			meta.setPage(pageNo+1);
 			meta.setPageSize(pageSize);
 			meta.setTotalCount(numberOfRows);
-			meta.setTotalPages(numberOfRows / pageSize);
+			meta.setTotalPages((numberOfRows / pageSize)+1);
+			baseWrapper.setMeta(meta);
 			return new ResponseEntity<BaseWrapper>(baseWrapper, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Nothing found", HttpStatus.OK);

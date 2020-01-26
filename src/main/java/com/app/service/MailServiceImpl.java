@@ -14,7 +14,7 @@ public class MailServiceImpl implements IMailService{
 	
 	@Autowired
 	JavaMailSender mailSender;
-
+	
 	public boolean confirmOTP(String OTP) {
 		System.out.println(otp);	
 		if(otp.equals(OTP)) {

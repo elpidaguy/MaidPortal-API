@@ -96,6 +96,21 @@ public class CustomerServiceImpl implements ICustomerService {
 		}
 		return false;
 	}
+	
+	@Override
+	public boolean resetPassword(String email,String newPassword) {
+		
+		Customer customer=custDao.getCustomerByEmail(email);
+		//System.out.println("customer tracked :\n"+customer.toString());
+		Optional<Customer> optional = custDao.findById(customer.getId());
+		if(optional.isPresent()) {
+			optional.get().setPassword(newPassword);
+			System.out.println("Optional Reset"+optional.get());
+			custDao.save(optional.get());
+			return true;
+		}
+		return false;
+	}
 
 	// TODO : Please confirm the logic
 	@Override
@@ -125,6 +140,8 @@ public class CustomerServiceImpl implements ICustomerService {
 		}
 		return null;
 	}
+	
+	
 
 	@Override
 	public List<Customer> getAllCustomers(Integer pageNo, Integer pageSize, String sortBy, String searchBy) {
