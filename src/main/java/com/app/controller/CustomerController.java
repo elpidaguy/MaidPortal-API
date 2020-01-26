@@ -99,6 +99,7 @@ public class CustomerController {
 			meta.setPageSize(pageSize);
 			meta.setTotalCount(numberOfRows);
 			meta.setTotalPages(numberOfRows / pageSize);
+			baseWrapper.setMeta(meta);
 			return new ResponseEntity<BaseWrapper>(baseWrapper, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Nothing found", HttpStatus.OK);

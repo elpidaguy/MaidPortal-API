@@ -20,8 +20,6 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "tbl_customers")
 public class Customer extends AbstractEntity {
@@ -46,7 +44,7 @@ public class Customer extends AbstractEntity {
 	// true)
 	@OneToOne
 	@JoinColumn(name = "feedback_id")
-	@JsonIgnore
+//	@JsonIgnore
 	public Feedback getFeedback() {
 		return feedback;
 	}
@@ -57,7 +55,7 @@ public class Customer extends AbstractEntity {
 
 	// @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval =
 	// true)
-	@JsonIgnore
+	//@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "subscription_id")
 	public Subscription getSubscription() {
@@ -68,7 +66,7 @@ public class Customer extends AbstractEntity {
 		this.subscription = subscription;
 	}
 
-	@JsonIgnore
+	//@JsonIgnore
 /*<<<<<<< HEAD
 	//@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
 	@OneToMany(mappedBy = "customer")
