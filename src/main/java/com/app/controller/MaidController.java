@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,8 +45,8 @@ public class MaidController {
 		return new ResponseEntity<String>("Authentication failed", HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/getMaid", method = RequestMethod.POST)
-	public ResponseEntity<?> getMaid(@RequestBody Integer id) {
+	@RequestMapping(value = "/getMaid/{id}")
+	public ResponseEntity<?> getMaid(@PathVariable Integer id) {
 
 		Maid maid = maidService.getMaid(id);
 		if (maid != null) {
@@ -67,6 +69,9 @@ public class MaidController {
 			meta.setPageSize(pageSize);
 			meta.setTotalCount(numberOfRows);
 			meta.setTotalPages(numberOfRows / pageSize);
+			
+			baseWrapper.setMeta(meta);
+			
 			return new ResponseEntity<BaseWrapper>(baseWrapper, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Nothing found", HttpStatus.OK);
