@@ -36,19 +36,21 @@ public class EmailController {
 	IMaidService maidService;
 
 	@RequestMapping(value = "/confirmOTP", method = RequestMethod.POST)
-	public ResponseEntity<String> confirmOTP(@RequestParam String OTP) {
-		if (mailService.confirmOTP(OTP)) {
-			return new ResponseEntity<String>("OTP Confirmed", HttpStatus.OK);
+	public ResponseEntity<?> confirmOTP(@RequestParam String otp) {
+		if (mailService.confirmOTP(otp)) {
+			//return new ResponseEntity<String>("OTP Confirmed", HttpStatus.OK);
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Invalid OTP", HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
-	public ResponseEntity<String> sendMail(@RequestParam String email) throws AddressException {
+	public ResponseEntity<?> sendMail(@RequestParam String email) throws AddressException {
 
 		if (customerSrvice.getCustomerByEmail(email) != null || maidService.getMaidByEmail(email) != null) {
 			mailService.sendMail(email);
-			return new ResponseEntity<String>("Email Sent", HttpStatus.OK);
+			//return new ResponseEntity<String>("Email Sent", HttpStatus.OK);
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Invalid email", HttpStatus.OK);
 

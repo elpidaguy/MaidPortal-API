@@ -57,10 +57,12 @@ public class AdminController {
 
 		if (customerService.getCustomerByEmail(email) != null) {
 			customerService.resetPassword(email, newPassword);
-			return new ResponseEntity<String>("Customer's Password Reset", HttpStatus.OK);
+			//return new ResponseEntity<String>("Customer's Password Reset", HttpStatus.OK);
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		} else if (maidService.getMaidByEmail(email) != null) {
 			maidService.resetPassword(email, newPassword);
-			return new ResponseEntity<String>("Maid's Password Reset", HttpStatus.OK);
+			//return new ResponseEntity<String>("Maid's Password Reset", HttpStatus.OK);
+			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>("Password Reset UnSuccesfull", HttpStatus.OK);
 		}

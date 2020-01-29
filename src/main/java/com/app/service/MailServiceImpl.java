@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailServiceImpl implements IMailService {
 
-	static String otp;
+	static String OTP;
 
 	@Autowired
 	JavaMailSender mailSender;
 
-	public boolean confirmOTP(String OTP) {
-		System.out.println(otp);
-		if (otp.equals(OTP)) {
+	public boolean confirmOTP(String otp) {
+		System.out.println("randomly generaated otp is "+OTP);
+		if (OTP.equals(otp)) {
 			// System.out.println("equals is OK in MailService");
 			return true;
 		}
@@ -29,8 +29,8 @@ public class MailServiceImpl implements IMailService {
 		String otpMsg;
 		Random random = new Random();
 		Integer number = random.nextInt(9999);
-		otp = number.toString();
-		otpMsg = ("OTP is " + otp);
+		OTP = number.toString();
+		otpMsg = ("OTP is " + OTP);
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setTo(email);
 		// mail.setTo("cdacmaidportal@gmail.com");
