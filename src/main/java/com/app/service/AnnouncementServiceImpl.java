@@ -24,10 +24,11 @@ public class AnnouncementServiceImpl implements IAnnouncementService {
 	@Override
 	public boolean addAnnouncement(Announcement announcement) {
 
-		Optional<Announcement> optional = announcementDao.findById(announcement.getId());
-		if (optional.isPresent()) {
-			return false;
-		}
+		/*
+		 * Optional<Announcement> optional =
+		 * announcementDao.findById(announcement.getId()); if (optional.isPresent()) {
+		 * return false; }
+		 */
 		announcementDao.save(announcement);
 		return true;
 	}

@@ -24,10 +24,10 @@ public class CarouselServiceImpl implements ICarouselService {
 	@Override
 	public boolean addCarousel(Carousel carousel) {
 
-		Optional<Carousel> optional = carouselDao.findById(carousel.getId());
-		if (optional.isPresent()) {
-			return false;
-		}
+		/*
+		 * Optional<Carousel> optional = carouselDao.findById(carousel.getId()); if
+		 * (optional.isPresent()) { return false; }
+		 */
 		carouselDao.save(carousel);
 		return true;
 	}
