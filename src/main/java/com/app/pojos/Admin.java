@@ -16,6 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "tbl_admins")
 public class Admin extends AbstractEntity {
 
+	private static final long serialVersionUID = 1L;
 	private String email, password;
 	private LocalDate createdDate;
 

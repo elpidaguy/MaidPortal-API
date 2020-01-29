@@ -1,6 +1,5 @@
 package com.app.pojos;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -11,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 public class Feedback extends AbstractEntity {
 
 	// private int user_id;// need to add user object here
+	private static final long serialVersionUID = 1L;
 	private int avgRating;
 	private String comment;
 

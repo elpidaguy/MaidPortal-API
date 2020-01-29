@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.app.service;
 
 import java.util.List;
@@ -16,11 +13,6 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.ICustomerDao;
 import com.app.pojos.Customer;
-
-/**
- * @author Kaustubh
- *
- */
 
 @Service
 public class CustomerServiceImpl implements ICustomerService {
@@ -96,16 +88,16 @@ public class CustomerServiceImpl implements ICustomerService {
 		}
 		return false;
 	}
-	
+
 	@Override
-	public boolean resetPassword(String email,String newPassword) {
-		
-		Customer customer=custDao.getCustomerByEmail(email);
-		//System.out.println("customer tracked :\n"+customer.toString());
+	public boolean resetPassword(String email, String newPassword) {
+
+		Customer customer = custDao.getCustomerByEmail(email);
+		// System.out.println("customer tracked :\n"+customer.toString());
 		Optional<Customer> optional = custDao.findById(customer.getId());
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			optional.get().setPassword(newPassword);
-			System.out.println("Optional Reset"+optional.get());
+			System.out.println("Optional Reset" + optional.get());
 			custDao.save(optional.get());
 			return true;
 		}
@@ -140,8 +132,6 @@ public class CustomerServiceImpl implements ICustomerService {
 		}
 		return null;
 	}
-	
-	
 
 	@Override
 	public List<Customer> getAllCustomers(Integer pageNo, Integer pageSize, String sortBy, String searchBy) {

@@ -15,8 +15,8 @@ public interface IMaidDao extends JpaRepository<Maid, Integer>, PagingAndSorting
 
 	@Query("select m from Maid m where m.email = ?1")
 	Maid getMaidByEmail(String email);
-	
-	//public Maid findMaidByEmail(String email);
+
+	// public Maid findMaidByEmail(String email);
 
 	/*
 	 * @Query(value = "select * from tbl_maids m limit :start , :numberOfRecords",

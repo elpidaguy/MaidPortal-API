@@ -9,13 +9,10 @@ import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass
 public class AbstractEntity implements Serializable {
-	
-/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-private Integer id;
-	
+	private Integer id;
+
 	public AbstractEntity() {
 		System.out.println("inside abstract entity");
 	}
@@ -30,5 +27,5 @@ private Integer id;
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 }

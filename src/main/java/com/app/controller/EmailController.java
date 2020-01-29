@@ -20,54 +20,45 @@ import com.app.service.IMailService;
 @RestController
 @RequestMapping("/email")
 public class EmailController {
-	
-	//String otp;
+
+	// String otp;
 
 	@Autowired
 	JavaMailSender sender;
 
 	@Autowired
 	ICustomerService customerSrvice;
-	
+
 	@Autowired
 	IMailService mailService;
 
 	@Autowired
 	IMaidService maidService;
 
-	@RequestMapping(value="/confirmOTP",method= RequestMethod.POST)
-	public ResponseEntity<String> confirmOTP(@RequestParam String OTP){
-		if(mailService.confirmOTP(OTP)) {
-			return new ResponseEntity<String>("OTP Confirmed",HttpStatus.OK);
+	@RequestMapping(value = "/confirmOTP", method = RequestMethod.POST)
+	public ResponseEntity<String> confirmOTP(@RequestParam String OTP) {
+		if (mailService.confirmOTP(OTP)) {
+			return new ResponseEntity<String>("OTP Confirmed", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Invalid OTP", HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/sendMail", method = RequestMethod.POST)
 	public ResponseEntity<String> sendMail(@RequestParam String email) throws AddressException {
-		
-	if (customerSrvice.getCustomerByEmail(email) != null || maidService.getMaidByEmail(email) != null) {
-		mailService.sendMail(email);
+
+		if (customerSrvice.getCustomerByEmail(email) != null || maidService.getMaidByEmail(email) != null) {
+			mailService.sendMail(email);
 			return new ResponseEntity<String>("Email Sent", HttpStatus.OK);
 		}
 		return new ResponseEntity<String>("Invalid email", HttpStatus.OK);
 
 	}
 }
-	
-	
 
-
-
-
-
-
-	
-	
-	//String replyTO=new InternetAddress(email);
+// String replyTO=new InternetAddress(email);
 //	if (customerSrvice.getCustomerByEmail(email) != null
 //			|| maidService.getMaidByEmail(email) != null) {
-	
+
 //		Random random = new Random();
 //		otp = ("OTP is " + random.nextInt(9999));
 //		SimpleMailMessage message = new SimpleMailMessage();
@@ -79,5 +70,3 @@ public class EmailController {
 //		message.setSubject("Maid portal otp");
 //		message.setText(otp);
 //		sender.send(message);
-		
-

@@ -20,11 +20,6 @@ import com.app.pojos.BaseWrapper;
 import com.app.pojos.Customer;
 import com.app.service.ICustomerService;
 
-/**
- * @author Kaustubh
- *
- */
-
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/customer")
@@ -91,14 +86,14 @@ public class CustomerController {
 		BaseWrapper baseWrapper = new BaseWrapper();
 		BaseWrapper.Meta meta = baseWrapper.new Meta();
 		int numberOfRows = service.getNumberOfRows();
-		List<Customer> list = service.getAllCustomers((pageNo-1), pageSize, sortBy, searchBy);
+		List<Customer> list = service.getAllCustomers((pageNo - 1), pageSize, sortBy, searchBy);
 		System.out.println(numberOfRows + "," + list);
 		baseWrapper.setItems(list);
 		if (list != null) {
 			meta.setPage(pageNo);
 			meta.setPageSize(pageSize);
 			meta.setTotalCount(numberOfRows);
-			meta.setTotalPages((numberOfRows / pageSize)+1);
+			meta.setTotalPages((numberOfRows / pageSize) + 1);
 			baseWrapper.setMeta(meta);
 			return new ResponseEntity<BaseWrapper>(baseWrapper, HttpStatus.OK);
 		}

@@ -11,5 +11,5 @@ public interface IAdminDao extends JpaRepository<Admin, Integer> {
 
 	@Query("select a from Admin a where a.email = ?1 and a.password = ?2")
 	Admin loginAdmin(String email, String password);
-	
+
 }

@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.app.dao.IMaidDao;
-import com.app.pojos.Customer;
 import com.app.pojos.Maid;
 
 @Service
@@ -32,7 +31,7 @@ public class MaidServiceImpl implements IMaidService {
 	}
 
 	@Override
-	public Maid login(String email,String password) {
+	public Maid login(String email, String password) {
 		/*
 		 * Maid temp = new Maid(); temp.setUserName(maid.getUserName());
 		 * temp.setPassword(maid.getPassword()); Example<Maid> example =
@@ -95,9 +94,9 @@ public class MaidServiceImpl implements IMaidService {
 		 * (optional.isPresent()) { maid.set_isActive(false); maidDao.save(maid); return
 		 * true; }
 		 */
-		 
+
 		Optional<Maid> optional = maidDao.findById(maid.getId());
-		
+
 		if (optional.isPresent()) {
 			optional.get().set_isActive(false);
 			maidDao.save(optional.get());
@@ -129,11 +128,11 @@ public class MaidServiceImpl implements IMaidService {
 	 * numberOfRecords; maids = maidDao.getMaids(start, numberOfRecords); return
 	 * maids; }
 	 */
-	
+
 	@Override
-	public List<Maid> getAllMaidList(){
+	public List<Maid> getAllMaidList() {
 		return maidDao.findAll();
-		//commented code in case of Only Acitve maids are required
+		// commented code in case of Only Acitve maids are required
 //		List<Maid> allMaid=maidDao.findAll();
 //		List<Maid> activeMaid=new ArrayList<Maid>();
 //		for (Maid maid : allMaid) {
@@ -146,20 +145,20 @@ public class MaidServiceImpl implements IMaidService {
 	}
 
 	@Override
-	public boolean resetPassword(String email,String newPassword) {
-		
-		Maid maid=maidDao.getMaidByEmail(email);
-		//System.out.println("Maid tracked :\n"+maid.toString());
+	public boolean resetPassword(String email, String newPassword) {
+
+		Maid maid = maidDao.getMaidByEmail(email);
+		// System.out.println("Maid tracked :\n"+maid.toString());
 		Optional<Maid> optional = maidDao.findById(maid.getId());
-		if(optional.isPresent()) {
+		if (optional.isPresent()) {
 			optional.get().setPassword(newPassword);
-			System.out.println("Optional Reset"+optional.get());
+			System.out.println("Optional Reset" + optional.get());
 			maidDao.save(optional.get());
 			return true;
 		}
 		return false;
 	}
-	
+
 	@Override
 	public int getNumberOfRows() {
 

@@ -24,9 +24,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "tbl_maids")
 public class Maid extends AbstractEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String firstName, lastName, email, phone, password, imgUrl, aadharCardNo;
 	private double salary;
@@ -84,7 +81,7 @@ public class Maid extends AbstractEntity {
 		this.subscriptionList = subscriptionList;
 	}
 
-	//@JsonIgnore
+	// @JsonIgnore
 	@OneToMany(mappedBy = "maid") // , cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<Salary> getSalaryList() {
 		return salaryList;

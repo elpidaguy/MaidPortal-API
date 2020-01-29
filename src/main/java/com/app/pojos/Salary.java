@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "tbl_Salary")
 public class Salary extends AbstractEntity {
 
+	private static final long serialVersionUID = 1L;
 	private double payable, bonus, fine; // these can be NULL
 	private LocalDate forMonth; // will only be used for notation of month
 	private LocalDate paymentDate, createdDate;

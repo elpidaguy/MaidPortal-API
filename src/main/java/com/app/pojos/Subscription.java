@@ -16,20 +16,13 @@ import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-/**
- * @author Kaustubh
- *
- */
 
 @Entity
 @Table(name = "tbl_subscription")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Subscription extends AbstractEntity {
 
+	private static final long serialVersionUID = 1L;
 	private ServiceType serviceType;
 	private String Salary;
 	private Maid maid;

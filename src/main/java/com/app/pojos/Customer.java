@@ -55,7 +55,7 @@ public class Customer extends AbstractEntity {
 
 	// @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval =
 	// true)
-	//@JsonIgnore
+	// @JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "subscription_id")
 	public Subscription getSubscription() {
@@ -66,12 +66,14 @@ public class Customer extends AbstractEntity {
 		this.subscription = subscription;
 	}
 
-	//@JsonIgnore
-/*<<<<<<< HEAD
-	//@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-	@OneToMany(mappedBy = "customer")
-=======*/
-	@OneToMany(mappedBy = "customer")//, cascade = CascadeType.ALL, orphanRemoval = true)
+	// @JsonIgnore
+	/*
+	 * <<<<<<< HEAD //@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL,
+	 * orphanRemoval = true)
+	 * 
+	 * @OneToMany(mappedBy = "customer") =======
+	 */
+	@OneToMany(mappedBy = "customer") // , cascade = CascadeType.ALL, orphanRemoval = true)
 
 	public List<Salary> getSalaryList() {
 		return salaryList;
@@ -221,9 +223,7 @@ public class Customer extends AbstractEntity {
 				+ ", address=" + address + ", salaryList=" + salaryList + ", subscription=" + subscription
 				+ ", feedback=" + feedback + "]";
 	}
-	
-	
-	
+
 	/*
 	 * public void addSalary(Salary sal) { salaryList.add(sal);
 	 * sal.setCustomer(this); }

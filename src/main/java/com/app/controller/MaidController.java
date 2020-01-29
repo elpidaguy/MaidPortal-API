@@ -61,12 +61,12 @@ public class MaidController {
 		BaseWrapper baseWrapper = new BaseWrapper();
 		BaseWrapper.Meta meta = baseWrapper.new Meta();
 		int numberOfRows = maidService.getNumberOfRows();
-		baseWrapper.setItems(maidService.getAllMaids((pageNo-1), pageSize, sortBy, searchBy));
+		baseWrapper.setItems(maidService.getAllMaids((pageNo - 1), pageSize, sortBy, searchBy));
 		if (baseWrapper.getItems() != null) {
 			meta.setPage(pageNo);
 			meta.setPageSize(pageSize);
 			meta.setTotalCount(numberOfRows);
-			meta.setTotalPages((numberOfRows / pageSize)+1);
+			meta.setTotalPages((numberOfRows / pageSize) + 1);
 
 			baseWrapper.setMeta(meta);
 

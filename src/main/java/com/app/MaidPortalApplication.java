@@ -9,5 +9,5 @@ public class MaidPortalApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MaidPortalApplication.class, args);
 	}
-	
+
 }

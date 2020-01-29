@@ -15,19 +15,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "tbl_Address")
 public class Address extends AbstractEntity {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String firstName, lastName, addressName, email, buildingName, street, city, state, pin, country, phone;
 	private LocalDateTime dateCreated;
 	private boolean _isActive;
-	
-
 
 	public Address() {
 	}
-
 
 	public Address(String firstName, String lastName, String addressName, String email, String buildingName,
 			String street, String city, String state, String pin, String country, String phone,
@@ -48,9 +42,6 @@ public class Address extends AbstractEntity {
 		this._isActive = _isActive;
 	}
 
-
-
-	
 	@Column(name = "first_name")
 	public String getFirstName() {
 		return firstName;
@@ -77,7 +68,7 @@ public class Address extends AbstractEntity {
 	public void setAddressName(String addressName) {
 		this.addressName = addressName;
 	}
-	
+
 	@NotEmpty
 	@Length(min = 5, max = 25)
 	@Email(message = "Please Enter Valid Email Address!")
@@ -138,7 +129,7 @@ public class Address extends AbstractEntity {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
+
 	@Column(length = 15, name = "phone", unique = true)
 	@NotEmpty
 	public String getPhone() {
@@ -150,7 +141,7 @@ public class Address extends AbstractEntity {
 	}
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	//@Temporal(TemporalType.DATE) i think we should use this for Date Created..
+	// @Temporal(TemporalType.DATE) i think we should use this for Date Created..
 	@Column(name = "created_date")
 	public LocalDateTime getDateCreated() {
 		return dateCreated;

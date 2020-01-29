@@ -7,8 +7,6 @@ public class Email {
 	private String subject;
 
 	public Email() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Email(String destEmail, String message, String subject) {

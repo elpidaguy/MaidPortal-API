@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "tbl_carousels")
 public class Carousel extends AbstractEntity {
 
+	private static final long serialVersionUID = 1L;
 	private String url, headerText, bodyText;
 	private LocalDate createdDate;
 	private boolean is_Deleted;

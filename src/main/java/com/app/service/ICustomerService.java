@@ -1,16 +1,9 @@
-/**
- * 
- */
 package com.app.service;
 
 import java.util.List;
 
 import com.app.pojos.Customer;
 
-/**
- * @author Kaustubh
- *
- */
 public interface ICustomerService {
 
 	public boolean register(Customer customer);
@@ -22,17 +15,17 @@ public interface ICustomerService {
 	public Customer getCustomerByEmail(String email);
 
 	// public List<Customer> getAllCustomers();
-	
+
 	public List<Customer> getAllCustomers(Integer pageNo, Integer pageSize, String sortBy, String searchBy);
 
 	public boolean updateCustomer(Customer customer);
 
 	public boolean deleteCustomer(Customer customer);
-	
+
 	public int getNumberOfRows();
-	
-	public boolean resetPassword(String email,String newPassword);
-	
+
+	public boolean resetPassword(String email, String newPassword);
+
 //	public Customer Login(String username, String password); //with string username pass
 
 }

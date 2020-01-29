@@ -13,6 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "tbl_announcements")
 public class Announcement extends AbstractEntity {
 
+	private static final long serialVersionUID = 1L;
 	private String title;
 	private LocalDate createdDate;
 	private boolean is_Deleted;
