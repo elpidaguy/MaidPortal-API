@@ -100,9 +100,10 @@ public class MaidController {
 	public ResponseEntity<?> updateMaid(@RequestBody Maid maid) {
 
 		if (maidService.updateMaid(maid)) {
+			//System.out.println("\n update is working");
 			return new ResponseEntity<Boolean>(true, HttpStatus.OK);
 		}
-
+		 
 		return new ResponseEntity<String>("Maid Not Found", HttpStatus.OK);
 	}
 }

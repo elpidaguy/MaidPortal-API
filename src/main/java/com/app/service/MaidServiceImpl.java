@@ -79,10 +79,10 @@ public class MaidServiceImpl implements IMaidService {
 
 		Optional<Maid> optional = maidDao.findById(maid.getId());
 		if (optional.isPresent()) {
-			return false;
+			maidDao.save(maid);
+			return true;
 		}
-		maidDao.save(maid);
-		return true;
+		return false;
 	}
 
 	@Override
