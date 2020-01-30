@@ -1,5 +1,6 @@
 package com.app.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,7 @@ public class AnnouncementServiceImpl implements IAnnouncementService {
 	@Override
 	public List<Announcement> getAllAnnouncement() {
 
-		return announcementDao.findAll();
+		return announcementDao.getAllAnnouncement();
 	}
 
 	@Override
@@ -29,6 +30,7 @@ public class AnnouncementServiceImpl implements IAnnouncementService {
 		 * announcementDao.findById(announcement.getId()); if (optional.isPresent()) {
 		 * return false; }
 		 */
+		announcement.setCreatedDate(LocalDate.now());
 		announcementDao.save(announcement);
 		return true;
 	}
